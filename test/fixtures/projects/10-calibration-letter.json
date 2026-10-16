@@ -1,0 +1,63 @@
+{
+ "name": "10-calibration-letter",
+ "about": "Calibration sheet letter: bar A = 150 mm, bar B = 200 mm between the end ticks (A2, D18).",
+ "kind": "calibration",
+ "calibration": {
+  "paperKey": "letter",
+  "pages": 1
+ },
+ "output": {
+  "paperKey": "letter"
+ },
+ "expect": {
+  "pageCount": 1,
+  "pageSizeMm": [
+   215.9,
+   279.4
+  ],
+  "features": [
+   {
+    "id": "bar A ends",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     22.95,
+     16.85,
+     170,
+     3.0
+    ],
+    "expect": {
+     "positions": [
+      32.95,
+      182.95
+     ],
+     "span": 150
+    },
+    "mode": "ticks",
+    "axis": "x",
+    "minTickMm": 2
+   },
+   {
+    "id": "bar B ends",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     14.85,
+     31.7,
+     3.0,
+     216
+    ],
+    "expect": {
+     "positions": [
+      39.7,
+      239.7
+     ],
+     "span": 200
+    },
+    "mode": "ticks",
+    "axis": "y",
+    "minTickMm": 2
+   }
+  ]
+ }
+}

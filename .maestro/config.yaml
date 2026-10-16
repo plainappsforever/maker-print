@@ -1,0 +1,21 @@
+# Flows share one simulator and one database, so run them sequentially in this order (by flow name).
+# .maestro/measure/ holds measurement flows (virtual printer, engine limits) — not part of the regression run.
+flows:
+  - "*"
+executionOrder:
+  continueOnFailure: true
+  flowsOrder:
+    - "Smoke - launch, open settings, change theme, restart, theme persists"
+    - "Selftest - engine W1-W10, referee PDFs written on the device's JS engine, imports, rasteriser"
+    - "New blank - Letter landscape sheet, shapes, drag on the canvas, align, layers, duplicate/delete, second sheet, autosave across a restart, rename/duplicate/delete project"
+    - "Templates - U4 graph paper 5 mm bold 10 mm on Letter; U5 1 m ruler on 4 landscape A4 tiles + map"
+    - "PDF pattern - U1 A2 pattern PDF opened through the document picker, 100 %, 8 landscape A4 tiles + map (A9 taps)"
+    - "Photo decal - U2 blank A4, photo from the photo picker, W 40 → H follows, PPI Sharp, mirror, repeat 3 × 4 gap 3 trim (A9 taps)"
+    - "Known length - U6 photo of a bracket with a ruler, two handles dragged onto 0 and 100, 100 mm typed → true size"
+    - "SVG units - U7 unit-less Illustrator SVG through the document picker, 72 ppi chosen, size shown, text reported as not printed"
+    - "Repeat labels - U8 blank A4, rectangle 50 × 30 mm and a text, gaps 2 mm, Fill sheet → 24 each (W6), trim marks"
+    - "Units DE - A11 German UI, decimal comma and fractional inches in the length fields, refusals explained"
+    - "Calibrate entry - banner to Calibrate, printers by name (choose, add), learned margins shown and used as the editor's printable area"
+    - "Calibrate - U3 printer Home inkjet, A4, measured 149.0 and 199.5 → slightly off → saved; next Print screen shows ×1.0067 / ×1.0025; refusal, bank card, profile list"
+    - "Print export - W4 ruler with saved corrections, real-PDF previews, tap-to-exclude, assembly map option, Export PDF share sheet, print dialog opened and cancelled (nothing printed), Android one-by-one"
+    - "Settings DE - language Deutsch (UI switches at once), inches with 1/16, default paper Letter used by New, help page per platform, privacy page"

@@ -1,0 +1,145 @@
+{
+ "name": "16-android-enlarging-lines",
+ "about": "Android single-page job (marginRule fit) with an ENLARGING single-page correction ×1.02 on A4 lined paper that fills the safe area (v1.1, REVIEW_V1 finding 1, D83): margins widened so the corrected ink stays inside the printer's 6.35 mm strips (checked on the PDF), the check bar forced on (switched off) and placed where the lines give way; it measures 100·c in the PDF.",
+ "sheets": [
+  {
+   "id": 1,
+   "widthMm": 210,
+   "heightMm": 297
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "sheetId": 1,
+   "kind": "lines",
+   "x": 6.35,
+   "y": 6.35,
+   "w": 197.3,
+   "h": 284.3,
+   "props": {
+    "spacingMm": 8,
+    "marginMm": 0,
+    "colour": "#ff0000"
+   }
+  }
+ ],
+ "output": {
+  "paperKey": "a4",
+  "checkBar": false,
+  "margins": {
+   "l": 8.29,
+   "t": 9.14,
+   "r": 8.29,
+   "b": 9.14
+  }
+ },
+ "printerMargins": {
+  "l": 6.35,
+  "t": 6.35,
+  "r": 6.35,
+  "b": 6.35
+ },
+ "marginRule": "fit",
+ "corrections": [
+  {
+   "paperKey": "a4",
+   "jobKind": "single",
+   "fx": 1.02,
+   "fy": 1.02
+  }
+ ],
+ "applyCorrection": true,
+ "expect": {
+  "pageCount": 1,
+  "pageSizeMm": [
+   210,
+   297
+  ],
+  "marginStripsMm": [
+   6.35,
+   6.35,
+   6.35,
+   6.35
+  ],
+  "forbiddenWarnings": [
+   "notDesignedSize",
+   "assetSizeUnknown",
+   "objectOffSheet",
+   "correctionIntoMargin",
+   "correctionOffPage",
+   "checkBarOmitted"
+  ],
+  "requiredWarnings": [
+   "correctionEnlarges",
+   "checkBarForced",
+   "checkBarRoomMade",
+   "objectInMargin"
+  ],
+  "allow": [
+   {
+    "page": 0,
+    "colour": "red"
+   }
+  ],
+  "features": [
+   {
+    "id": "lines ×c (step 8·c)",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     150,
+     0,
+     10,
+     297
+    ],
+    "expect": {
+     "ticks": 33,
+     "first": 11.667,
+     "last": 272.787,
+     "maxStepError": 0.05
+    },
+    "mode": "ticks",
+    "axis": "y",
+    "minTickMm": 2,
+    "step": 8.16
+   },
+   {
+    "id": "line ends inside the printer margins",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     0,
+     147.387,
+     210,
+     6
+    ],
+    "expect": {
+     "l": 6.3558,
+     "r": 203.6442
+    }
+   },
+   {
+    "id": "check bar 0..100 (×c), forced on",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     0,
+     283.8172,
+     120,
+     6.72
+    ],
+    "expect": {
+     "ticks": 11,
+     "span": 102.0,
+     "first": 6.8658,
+     "maxStepError": 0.05
+    },
+    "mode": "ticks",
+    "axis": "x",
+    "minTickMm": 1.8,
+    "step": 10.2
+   }
+  ]
+ }
+}

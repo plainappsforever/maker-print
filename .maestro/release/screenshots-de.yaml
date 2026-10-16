@@ -1,0 +1,115 @@
+appId: ${APP_ID}
+name: Release screenshots German - 1 m ruler (editor + print), photo decal (editor), projects list, calibrate (PLATFORM names the files)
+tags:
+  - release
+---
+- runFlow:
+    file: ../subflows/release-start.yaml
+# v1.1: the same screens in German (RELEASE_KIT 1c item 4; UI language switched in Settings, D78)
+- tapOn:
+    id: open-settings
+- tapOn:
+    id: set-language-de
+- extendedWaitUntil:
+    visible: "Sprache"
+    timeout: 15000
+- runFlow: ../subflows/launch.yaml
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-template
+- tapOn:
+    id: template-ruler
+- tapOn:
+    id: template-length
+- eraseText: 20
+- inputText: "1000"
+- tapOn:
+    id: template-paper-a4
+- tapOn:
+    id: template-create
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- takeScreenshot: ${PLATFORM}-de-1-editor-ruler
+- tapOn:
+    id: editor-print
+- extendedWaitUntil:
+    visible:
+      id: page-1-raster
+    timeout: 60000
+- takeScreenshot: ${PLATFORM}-de-2-print-ruler
+- runFlow: ../subflows/launch.yaml
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-blank-default
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- tapOn:
+    id: bar-add
+- tapOn:
+    id: add-photo
+- runFlow:
+    file: ../subflows/pick-photo.yaml
+    env:
+      PHOTO_DATE: January 01
+      PHOTO_DAY: Jan 1
+- extendedWaitUntil:
+    visible:
+      id: inspector-title
+      text: ".+\\.jpe?g"
+    timeout: 30000
+- runFlow:
+    file: ../subflows/type.yaml
+    env:
+      ID: field-w
+      TEXT: "40"
+- tapOn:
+    id: insp-tab-turn
+- tapOn:
+    id: toggle-mirror-h
+- tapOn:
+    id: insp-tab-repeat
+- runFlow:
+    file: ../subflows/type.yaml
+    env:
+      ID: field-cols
+      TEXT: "3"
+- runFlow:
+    file: ../subflows/type.yaml
+    env:
+      ID: field-rows
+      TEXT: "4"
+- runFlow:
+    file: ../subflows/type.yaml
+    env:
+      ID: field-gap-x
+      TEXT: "3"
+- runFlow:
+    file: ../subflows/type.yaml
+    env:
+      ID: field-gap-y
+      TEXT: "3"
+- tapOn:
+    id: toggle-trim
+- assertVisible:
+    id: copies-line
+    text: "12 Kopien \\(3 × 4\\)"
+- takeScreenshot: ${PLATFORM}-de-3-editor-decal
+- runFlow: ../subflows/launch.yaml
+- takeScreenshot: ${PLATFORM}-de-4-projects
+- tapOn:
+    id: open-calibrate
+- tapOn:
+    id: cal-new-profile
+- inputText: "Tintenstrahler"
+- pressKey: Enter
+- tapOn:
+    id: paper-a4
+- assertVisible:
+    id: print-calibration
+- takeScreenshot: ${PLATFORM}-de-5-calibrate

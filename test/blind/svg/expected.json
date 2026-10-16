@@ -1,0 +1,1045 @@
+{
+ "b01-viewbox-only.svg": {
+  "ppi": 96,
+  "size": [
+   52.916666666666664,
+   26.458333333333332,
+   true
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     13.229166666666666,
+     6.614583333333333,
+     39.6875,
+     19.84375
+    ]
+   }
+  ],
+  "report": [],
+  "note": "viewBox only -> ask ppi; 96"
+ },
+ "b01b-viewbox-only-72.svg": {
+  "ppi": 72,
+  "size": [
+   70.55555555555554,
+   35.27777777777777,
+   true
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     17.638888888888886,
+     8.819444444444443,
+     52.916666666666664,
+     26.458333333333332
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b02-width-in.svg": {
+  "ppi": 96,
+  "size": [
+   101.6,
+   50.8,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     25.4,
+     12.7,
+     76.2,
+     38.1
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b03-width-cm-noviewbox.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     0,
+     0,
+     25.4,
+     12.7
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     50,
+     10,
+     70,
+     35.4
+    ]
+   }
+  ],
+  "report": [],
+  "note": "no viewBox: user unit = CSS px; mm units inside"
+ },
+ "b03b-width-cm-noviewbox-72.svg": {
+  "ppi": 72,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     0,
+     0,
+     25.4,
+     12.7
+    ]
+   }
+  ],
+  "report": [],
+  "note": "physical width: the ppi answer must not matter"
+ },
+ "b04-width-pt.svg": {
+  "ppi": 96,
+  "size": [
+   50.8,
+   25.4,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     12.7,
+     6.35,
+     38.1,
+     19.05
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b05-nested-transforms.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   100,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     20,
+     20,
+     40,
+     30
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     75,
+     50,
+     90,
+     60
+    ]
+   },
+   {
+    "colour": "green",
+    "rect": [
+     62.928932188134524,
+     72.92893218813452,
+     77.07106781186548,
+     87.07106781186548
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b06-use-symbol.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   60,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     10,
+     10,
+     30,
+     30
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     55,
+     10,
+     59,
+     14
+    ]
+   },
+   {
+    "colour": "green",
+    "rect": [
+     75,
+     10,
+     85,
+     20
+    ]
+   }
+  ],
+  "report": [],
+  "note": "symbol viewBox meet in use box; fill inherited from use"
+ },
+ "b07-css-cascade.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     5,
+     5,
+     15,
+     15
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     20,
+     5,
+     30,
+     15
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     35,
+     5,
+     45,
+     15
+    ]
+   },
+   {
+    "colour": "green",
+    "rect": [
+     50,
+     5,
+     60,
+     15
+    ]
+   },
+   {
+    "colour": "green",
+    "rect": [
+     65,
+     5,
+     75,
+     15
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     80,
+     5,
+     90,
+     15
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b08-polyline.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   100,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     10,
+     9,
+     41,
+     40
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     60,
+     10,
+     90,
+     40
+    ]
+   }
+  ],
+  "report": [],
+  "note": "miter join corner, butt caps"
+ },
+ "b09-clip-path.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   100,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     20,
+     20,
+     50,
+     30
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     60,
+     60,
+     70,
+     70
+    ]
+   },
+   {
+    "colour": "green",
+    "rect": [
+     10,
+     80,
+     20,
+     90
+    ]
+   }
+  ],
+  "report": [
+   "objectBoundingBox clip (approximated or exact)"
+  ],
+  "note": ""
+ },
+ "b10-text.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     60,
+     10,
+     70,
+     20
+    ]
+   }
+  ],
+  "report": [
+   "text notDrawn"
+  ],
+  "note": ""
+ },
+ "b11-markers.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     10,
+     24,
+     80,
+     26
+    ]
+   }
+  ],
+  "report": [
+   "marker notDrawn"
+  ],
+  "note": ""
+ },
+ "b12-gradient.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "green",
+    "rect": [
+     60,
+     5,
+     80,
+     25
+    ]
+   }
+  ],
+  "report": [
+   "gradient approximated",
+   "missing paint server with fallback -> fallback colour"
+  ],
+  "note": ""
+ },
+ "b13-embedded-image.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     60,
+     10,
+     70,
+     20
+    ]
+   }
+  ],
+  "report": [
+   "2 images notDrawn (embedded + external)"
+  ],
+  "note": ""
+ },
+ "b14-injection.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     5,
+     5,
+     15,
+     15
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     20,
+     5,
+     30,
+     15
+    ]
+   },
+   {
+    "colour": "red",
+    "rect": [
+     40,
+     5,
+     50,
+     15
+    ]
+   }
+  ],
+  "report": [
+   "script/foreignObject/external refs reported, nothing fetched"
+  ],
+  "note": "P3.5 fix round: the &inner; entity rect (red, x 40) is correct output \u2014 the reviewer listed it as a truth error of theirs (REVIEW_ENGINE.md, blind SVG result)"
+ },
+ "b15-billion-laughs.svg": {
+  "ppi": 96,
+  "size": [
+   10,
+   10,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     0,
+     0,
+     5,
+     5
+    ]
+   }
+  ],
+  "report": [
+   "entity expansion must not explode"
+  ],
+  "note": ""
+ },
+ "b16-percent.svg": {
+  "ppi": 96,
+  "size": [
+   79.375,
+   39.6875,
+   true
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     0,
+     0,
+     39.6875,
+     19.84375
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b17a-par-meet.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     25,
+     0,
+     75,
+     50
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b17b-par-none.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     0,
+     0,
+     100,
+     50
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b17c-par-slice.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     0,
+     0,
+     100,
+     40
+    ]
+   }
+  ],
+  "report": [],
+  "note": "blue is outside the viewport: must not print"
+ },
+ "b18-nested-svg.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   100,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     10,
+     10,
+     50,
+     30
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     40,
+     20,
+     50,
+     30
+    ]
+   }
+  ],
+  "report": [],
+  "note": "blue drawn over red; clipped by the nested viewport"
+ },
+ "b19-inherit-currentcolor.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     5,
+     5,
+     15,
+     15
+    ]
+   },
+   {
+    "colour": "green",
+    "rect": [
+     29,
+     4,
+     41,
+     16
+    ]
+   },
+   {
+    "colour": "black",
+    "rect": [
+     60,
+     5,
+     70,
+     15
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b20-hidden.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     60,
+     5,
+     70,
+     15
+    ]
+   }
+  ],
+  "report": [],
+  "note": "only the visible child of a hidden group prints"
+ },
+ "b21-arcs.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   100,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     10,
+     30,
+     50,
+     50
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     60,
+     75,
+     90,
+     100
+    ]
+   },
+   {
+    "colour": "green",
+    "rect": [
+     10,
+     70,
+     30,
+     90
+    ]
+   }
+  ],
+  "report": [],
+  "note": "blue circle partly outside viewBox -> clipped to 100"
+ },
+ "b22-inkscape.svg": {
+  "ppi": 96,
+  "size": [
+   210,
+   297,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     10,
+     10,
+     40,
+     30
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b23-colours.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     5,
+     5,
+     15,
+     15
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     20,
+     5,
+     30,
+     15
+    ]
+   },
+   {
+    "colour": "green",
+    "rect": [
+     35,
+     5,
+     45,
+     15
+    ]
+   },
+   {
+    "colour": "red",
+    "rect": [
+     50,
+     5,
+     60,
+     15
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     65,
+     5,
+     75,
+     15
+    ]
+   },
+   {
+    "colour": "green",
+    "rect": [
+     80,
+     5,
+     90,
+     15
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b24-switch-a.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     20,
+     5,
+     30,
+     15
+    ]
+   },
+   {
+    "colour": "green",
+    "rect": [
+     40,
+     5,
+     50,
+     15
+    ]
+   }
+  ],
+  "report": [],
+  "note": "switch: first child whose conditions pass (systemLanguage xx fails)"
+ },
+ "b25-negative-viewbox.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   100,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     40,
+     40,
+     60,
+     60
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b26-prefixed-root.svg": {
+  "ppi": 96,
+  "size": [
+   50,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     10,
+     10,
+     30,
+     30
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b27-no-xmlns.svg": {
+  "ppi": 96,
+  "size": [
+   50,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     10,
+     10,
+     30,
+     30
+    ]
+   }
+  ],
+  "report": [],
+  "note": "no xmlns: browsers refuse, cutters accept; any honest outcome OK"
+ },
+ "b28-sci-notation.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     10,
+     10,
+     30,
+     15
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     50,
+     10,
+     70,
+     15
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b29-recursive-use.svg": {
+  "ppi": 96,
+  "size": [
+   50,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     5,
+     5,
+     15,
+     15
+    ]
+   }
+  ],
+  "report": [
+   "recursive use reported, no hang"
+  ],
+  "note": ""
+ },
+ "b30-shapes-dash.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   60,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     5,
+     5,
+     25,
+     25
+    ]
+   },
+   {
+    "colour": "blue",
+    "rect": [
+     33,
+     9,
+     57,
+     21
+    ]
+   },
+   {
+    "colour": "green",
+    "rect": [
+     63,
+     13,
+     97,
+     17
+    ]
+   },
+   {
+    "colour": "red",
+    "rect": [
+     5,
+     35,
+     35,
+     55
+    ]
+   }
+  ],
+  "report": [],
+  "note": ""
+ },
+ "b31-space-unit.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     0,
+     0,
+     10,
+     10
+    ]
+   }
+  ],
+  "report": [],
+  "note": "\"100 mm\" is not a valid CSS length: refuse or ask, never a silent wrong size \u2014 P3.5 fix round: accepted as 100 mm, the size the author meant; the reviewer did not count it as a finding (REVIEW_ENGINE.md)"
+ },
+ "b32-css-units-in-style.svg": {
+  "ppi": 96,
+  "size": [
+   100,
+   50,
+   false
+  ],
+  "features": [
+   {
+    "colour": "red",
+    "rect": [
+     8.11023622047244,
+     8.11023622047244,
+     31.88976377952756,
+     31.88976377952756
+    ]
+   }
+  ],
+  "report": [],
+  "note": "stroke-width 1mm = 3.7795 user units (CSS px) -> rendered 3.78 mm wide on this 1 unit = 1 mm drawing"
+ }
+}

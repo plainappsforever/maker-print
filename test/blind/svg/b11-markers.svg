@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100mm" height="50mm" viewBox="0 0 100 50"><defs><marker id="m" markerWidth="4" markerHeight="4" refX="2" refY="2"><rect width="4" height="4" fill="#00f"/></marker></defs><line x1="10" y1="25" x2="80" y2="25" stroke="#f00" stroke-width="2" marker-end="url(#m)"/></svg>

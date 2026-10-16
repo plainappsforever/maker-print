@@ -1,0 +1,121 @@
+{
+ "name": "15-a4-landscape-single-corrected",
+ "about": "A 297×210 sheet on A4: one landscape frame turned onto portrait A4 (D53) with an anisotropic single-page correction applied in paper terms (fx along the paper width, fy along its length — no swap); PDF page, rect and the turned check bar (100·fy).",
+ "sheets": [
+  {
+   "id": 1,
+   "widthMm": 297,
+   "heightMm": 210
+  }
+ ],
+ "assets": [
+  {
+   "id": 1,
+   "kind": "pdf",
+   "file": "pdf/red-100x60.pdf"
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "sheetId": 1,
+   "kind": "rect",
+   "x": 80,
+   "y": 120,
+   "w": 50,
+   "h": 40,
+   "props": {
+    "fill": "#0000ff",
+    "stroke": null
+   }
+  },
+  {
+   "id": 2,
+   "sheetId": 1,
+   "kind": "pdf_page",
+   "x": 150,
+   "y": 20,
+   "w": 100,
+   "h": 60,
+   "assetId": 1
+  }
+ ],
+ "output": {
+  "paperKey": "a4",
+  "checkBar": true
+ },
+ "corrections": [
+  {
+   "paperKey": "a4",
+   "jobKind": "single",
+   "fx": 0.9852216748768473,
+   "fy": 0.9803921568627451
+  }
+ ],
+ "applyCorrection": true,
+ "expect": {
+  "pageCount": 1,
+  "pageSizeMm": [
+   210,
+   297
+  ],
+  "features": [
+   {
+    "id": "blue rect (turned, corrected)",
+    "page": 0,
+    "colour": "blue",
+    "rect": [
+     118.2783,
+     165.1373,
+     42.4089,
+     52.0196
+    ],
+    "expect": {
+     "l": 119.778325,
+     "t": 166.637255,
+     "r": 159.187192,
+     "b": 215.656863
+    }
+   },
+   {
+    "id": "PDF red (turned, corrected)",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     29.6084,
+     106.3137,
+     22.7044,
+     32.4118
+    ],
+    "expect": {
+     "l": 31.108374,
+     "t": 107.813725,
+     "r": 50.812808,
+     "b": 137.22549
+    }
+   },
+   {
+    "id": "check bar ×fy along the paper length",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     192.1921,
+     185.2647,
+     10.3448,
+     105.8824
+    ],
+    "expect": {
+     "ticks": 11,
+     "span": 98.039216,
+     "first": 189.333333,
+     "last": 287.372549,
+     "maxStepError": 0.05
+    },
+    "mode": "ticks",
+    "axis": "y",
+    "minTickMm": 1.7733990147783252,
+    "step": 9.80392156862745
+   }
+  ]
+ }
+}

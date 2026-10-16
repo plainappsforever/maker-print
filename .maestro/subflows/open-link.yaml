@@ -1,0 +1,8 @@
+appId: ${APP_ID}
+# Opens a dev deep link (LINK) in the running app. iOS asks "Open in “Maker Print Dev”?" for a scheme it has not
+# opened before; that alert is tapped away when it shows.
+---
+- openLink: ${LINK}
+- tapOn:
+    text: "Open"
+    optional: true

@@ -1,0 +1,14 @@
+{
+  "source": "docs/SPEC.md §8 worked example W1 (values as printed, 4 decimals)",
+  "paperPt": [
+    { "key": "a4", "widthPt": 595.2756, "heightPt": 841.8898 },
+    { "key": "letter", "widthPt": 612, "heightPt": 792 }
+  ],
+  "mmToPt": [{ "mm": 100, "pt": 283.4646 }],
+  "parse": [
+    { "text": "3 1/16 in", "locale": "en", "unit": "mm", "mm": 77.7875 },
+    { "text": "7,5 cm", "locale": "de", "unit": "mm", "mm": 75 },
+    { "text": "12 pt", "locale": "en", "unit": "mm", "mm": 4.2333 }
+  ],
+  "tolerance": 0.00005
+}

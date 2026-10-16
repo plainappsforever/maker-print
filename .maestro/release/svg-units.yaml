@@ -1,0 +1,56 @@
+appId: ${APP_ID}
+name: Release - SVG units - U7 unit-less Illustrator SVG through the document picker, 72 ppi chosen, size shown, text reported as not printed
+tags:
+  - release
+---
+- runFlow:
+    file: ../subflows/release-start.yaml
+    env:
+      SET: empty
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-file
+- runFlow:
+    file: ../subflows/pick-file.yaml
+    env:
+      FILE: drawing-ai72
+- extendedWaitUntil:
+    visible:
+      id: svg-units
+    timeout: 30000
+# the report is shown before placing: one text element is not printed
+- assertVisible:
+    id: svg-report-text
+    text: "• Text \\(1×\\) — convert text to paths/outlines in your design app\\."
+- assertVisible: "Not printed"
+- tapOn:
+    id: svg-ppi-72
+- assertVisible:
+    id: svg-size
+    text: "Size: 141.11 × 105.83 mm"
+- tapOn:
+    id: svg-place
+- extendedWaitUntil:
+    visible:
+      id: inspector-title
+      text: "drawing-ai72.svg"
+    timeout: 30000
+- assertVisible:
+    id: sheet-chip
+    text: ".*210 × 297 mm · 1 page A4, 1:1.*"
+- assertVisible:
+    id: scale-line
+    text: "Designed size \\(100 %\\)"
+- assertVisible:
+    id: field-w
+    text: "141.11 mm"
+- tapOn:
+    id: insp-tab-more
+- assertVisible:
+    id: asset-report-text
+- tapOn:
+    id: editor-print
+- assertVisible:
+    id: plan-summary
+    text: "1 page · A4, 1:1"

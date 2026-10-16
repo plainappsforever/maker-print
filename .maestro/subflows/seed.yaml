@@ -1,0 +1,13 @@
+appId: ${APP_ID}
+# Absolute precondition (V1_PLAN rule 14): wipe all data, load seed SET, back to a fresh Projects screen.
+---
+- runFlow: launch.yaml
+- runFlow:
+    file: open-link.yaml
+    env:
+      LINK: makerprint-dev://debug/seed?set=${SET}
+- extendedWaitUntil:
+    visible:
+      id: seed-done
+    timeout: 20000
+- runFlow: launch.yaml

@@ -1,0 +1,183 @@
+{
+ "name": "03-images",
+ "about": "PNG with pHYs, rotated + stretched copy, RGBA transparency (transparent pixels are black: ignoring alpha would print black), JPEG with EXIF orientation 6 (CoreGraphics draws the raw pixels; the painter must rotate).",
+ "sheets": [
+  {
+   "id": 1,
+   "widthMm": 210,
+   "heightMm": 297
+  }
+ ],
+ "assets": [
+  {
+   "id": 1,
+   "kind": "image",
+   "file": "images/red-square-300dpi.png"
+  },
+  {
+   "id": 2,
+   "kind": "image",
+   "file": "images/blue-alpha.png"
+  },
+  {
+   "id": 3,
+   "kind": "image",
+   "file": "images/orient6.jpg"
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "sheetId": 1,
+   "kind": "image",
+   "x": 20,
+   "y": 30,
+   "w": 40,
+   "h": 40,
+   "assetId": 1
+  },
+  {
+   "id": 2,
+   "sheetId": 1,
+   "kind": "image",
+   "x": 100,
+   "y": 30,
+   "w": 60,
+   "h": 40,
+   "assetId": 1,
+   "rotationDeg": 90
+  },
+  {
+   "id": 3,
+   "sheetId": 1,
+   "kind": "image",
+   "x": 20,
+   "y": 90,
+   "w": 50,
+   "h": 50,
+   "assetId": 2
+  },
+  {
+   "id": 4,
+   "sheetId": 1,
+   "kind": "image",
+   "x": 100,
+   "y": 90,
+   "w": 40,
+   "h": 60,
+   "assetId": 3
+  }
+ ],
+ "output": {
+  "paperKey": "a4"
+ },
+ "expect": {
+  "pageCount": 1,
+  "pageSizeMm": [
+   210,
+   297
+  ],
+  "features": [
+   {
+    "id": "png red square",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     27,
+     37,
+     26,
+     26
+    ],
+    "expect": {
+     "cx": 40,
+     "cy": 50,
+     "area": 400.0
+    },
+    "areaTol": 0.02
+   },
+   {
+    "id": "png rotated 90 + stretched",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     117,
+     32,
+     26,
+     36
+    ],
+    "expect": {
+     "cx": 130,
+     "cy": 50,
+     "area": 600.0
+    },
+    "areaTol": 0.02
+   },
+   {
+    "id": "png alpha: blue square",
+    "page": 0,
+    "colour": "blue",
+    "rect": [
+     29.5,
+     99.5,
+     31.0,
+     31.0
+    ],
+    "expect": {
+     "cx": 45,
+     "cy": 115,
+     "area": 625.0
+    },
+    "areaTol": 0.02
+   },
+   {
+    "id": "png alpha: no black from transparent pixels (ink = blue only)",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     15,
+     85,
+     60,
+     60
+    ],
+    "expect": {
+     "area": 416.666667
+    },
+    "areaTol": 0.03
+   },
+   {
+    "id": "jpeg EXIF 6: red block top-right",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     128,
+     88,
+     14,
+     24
+    ],
+    "expect": {
+     "cx": 135,
+     "cy": 100,
+     "area": 200.0
+    },
+    "areaTol": 0.04
+   },
+   {
+    "id": "jpeg EXIF 6: green block bottom-left",
+    "page": 0,
+    "colour": "green",
+    "rect": [
+     98,
+     128,
+     14,
+     24
+    ],
+    "expect": {
+     "cx": 105,
+     "cy": 140,
+     "area": 200.0
+    },
+    "areaTol": 0.04
+   }
+  ]
+ }
+}

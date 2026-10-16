@@ -1,0 +1,218 @@
+{
+ "name": "01-vector-shapes",
+ "about": "rect (fill), ellipse (fill), line (1 mm stroke), stroked rect (2 mm, centred on the outline), text (AFM bbox of \"HHH\"), test square outline. A4 sheet = A4 paper → single page, sheet = page coordinates.",
+ "sheets": [
+  {
+   "id": 1,
+   "widthMm": 210,
+   "heightMm": 297
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "sheetId": 1,
+   "kind": "rect",
+   "x": 20,
+   "y": 20,
+   "w": 50,
+   "h": 30,
+   "props": {
+    "fill": "#ff0000",
+    "stroke": null
+   }
+  },
+  {
+   "id": 2,
+   "sheetId": 1,
+   "kind": "ellipse",
+   "x": 100,
+   "y": 20,
+   "w": 60,
+   "h": 30,
+   "props": {
+    "fill": "#0000ff",
+    "stroke": null
+   }
+  },
+  {
+   "id": 3,
+   "sheetId": 1,
+   "kind": "line",
+   "x": 20,
+   "y": 70,
+   "w": 100,
+   "h": 10,
+   "props": {
+    "stroke": "#00ff00",
+    "strokeMm": 1
+   }
+  },
+  {
+   "id": 4,
+   "sheetId": 1,
+   "kind": "rect",
+   "x": 140,
+   "y": 70,
+   "w": 40,
+   "h": 20,
+   "props": {
+    "stroke": "#ff00ff",
+    "strokeMm": 2,
+    "fill": null
+   }
+  },
+  {
+   "id": 5,
+   "sheetId": 1,
+   "kind": "text",
+   "x": 20,
+   "y": 100,
+   "w": 150,
+   "h": 20,
+   "props": {
+    "text": "HHH",
+    "fontSizePt": 36,
+    "colour": "#ff0000"
+   }
+  },
+  {
+   "id": 6,
+   "sheetId": 1,
+   "kind": "test_square",
+   "x": 120,
+   "y": 150,
+   "w": 50,
+   "h": 50,
+   "props": {
+    "colour": "#0000ff"
+   }
+  }
+ ],
+ "output": {
+  "paperKey": "a4"
+ },
+ "expect": {
+  "pageCount": 1,
+  "pageSizeMm": [
+   210,
+   297
+  ],
+  "features": [
+   {
+    "id": "rect fill",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     18.5,
+     18.5,
+     53.0,
+     33.0
+    ],
+    "expect": {
+     "l": 20,
+     "t": 20,
+     "r": 70,
+     "b": 50,
+     "area": 1500.0,
+     "cx": 45,
+     "cy": 35
+    }
+   },
+   {
+    "id": "ellipse fill",
+    "page": 0,
+    "colour": "blue",
+    "rect": [
+     98.5,
+     18.5,
+     63.0,
+     33.0
+    ],
+    "expect": {
+     "l": 100,
+     "t": 20,
+     "r": 160,
+     "b": 50,
+     "area": 1413.716694,
+     "cx": 130,
+     "cy": 35
+    }
+   },
+   {
+    "id": "line 1 mm",
+    "page": 0,
+    "colour": "green",
+    "rect": [
+     18.5,
+     73.0,
+     103.0,
+     4.0
+    ],
+    "expect": {
+     "l": 20,
+     "t": 74.5,
+     "r": 120,
+     "b": 75.5,
+     "area": 100.0,
+     "cy": 75
+    }
+   },
+   {
+    "id": "stroked rect",
+    "page": 0,
+    "colour": "magenta",
+    "rect": [
+     137.5,
+     67.5,
+     45.0,
+     25.0
+    ],
+    "expect": {
+     "l": 139,
+     "t": 69,
+     "r": 181,
+     "b": 91,
+     "area": 240,
+     "cx": 160,
+     "cy": 80
+    }
+   },
+   {
+    "id": "text HHH (AFM bbox; macOS Helvetica outlines)",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     19.0033,
+     98.0,
+     29.5016,
+     13.1186
+    ],
+    "expect": {
+     "l": 21.0033,
+     "t": 100.0,
+     "r": 46.5049,
+     "b": 109.1186
+    },
+    "tol": 0.15
+   },
+   {
+    "id": "test square outline 50 mm",
+    "page": 0,
+    "colour": "blue",
+    "rect": [
+     118.4,
+     148.4,
+     53.2,
+     53.2
+    ],
+    "expect": {
+     "l": 119.9,
+     "t": 149.9,
+     "r": 170.1,
+     "b": 200.1
+    }
+   }
+  ]
+ }
+}

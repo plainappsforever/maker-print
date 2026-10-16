@@ -1,0 +1,30 @@
+appId: ${APP_ID}
+name: Release - Smoke - launch, open settings, change theme, restart, theme persists
+tags:
+  - release
+---
+- runFlow: ../subflows/launch.yaml
+
+# Settings: switch to dark mode
+- tapOn:
+    id: open-settings
+- assertVisible:
+    id: settings-screen
+- tapOn:
+    id: theme-dark
+- assertVisible:
+    id: theme-dark
+    selected: true
+
+# Restart the app: the theme must still be there (SQLite settings persist)
+- stopApp
+- runFlow: ../subflows/launch.yaml
+- tapOn:
+    id: open-settings
+- assertVisible:
+    id: theme-dark
+    selected: true
+
+# Restore the default theme for the next run
+- tapOn:
+    id: theme-system

@@ -1,0 +1,56 @@
+appId: ${APP_ID}
+name: Calibrate entry - banner to Calibrate, printers by name (choose, add), learned margins shown and used as the editor's printable area
+tags:
+  - p5
+---
+- runFlow:
+    file: subflows/seed.yaml
+    env:
+      SET: learned
+- tapOn:
+    id: open-calibrate
+- assertVisible:
+    id: calibrate-screen
+- assertVisible:
+    id: cal-profile-margins
+    text: "Printer margins \\(learned\\): left 3, top 4, right 5, bottom 12 mm\\."
+- tapOn:
+    id: cal-new-profile
+- inputText: "Home inkjet"
+- pressKey: Enter
+- assertVisible: "Home inkjet"
+- assertVisible:
+    id: cal-profile-margins
+    text: "Printer margins: not known yet.*"
+- tapOn: "Office laser"
+- assertVisible:
+    id: cal-profile-margins
+    text: "Printer margins \\(learned\\).*"
+# the editor's printable area follows the chosen printer's learned margins
+- runFlow: subflows/launch.yaml
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-blank-default
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- tapOn:
+    id: bar-add
+- tapOn:
+    id: add-rect
+- tapOn:
+    id: bar-align
+- tapOn:
+    id: align-left
+- tapOn:
+    id: align-bottom
+- tapOn:
+    id: bar-edit
+- assertVisible:
+    id: field-x
+    text: "3 mm"
+- assertVisible:
+    id: field-y
+    text: "255 mm"

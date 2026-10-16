@@ -1,0 +1,11 @@
+appId: ${APP_ID}
+# iPhone 17 Pro (402 × 874 pt): the stage is [20,192]–[382,373]; circles at x 110.5 / 291.5, y 282.5
+---
+- swipe:
+    start: 110, 282
+    end: 91, 282
+    duration: 800
+- swipe:
+    start: 291, 282
+    end: 310, 282
+    duration: 800

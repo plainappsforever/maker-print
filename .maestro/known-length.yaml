@@ -1,0 +1,73 @@
+appId: ${APP_ID}
+name: Known length - U6 photo of a bracket with a ruler, two handles dragged onto 0 and 100, 100 mm typed → true size
+tags:
+  - p5
+---
+- runFlow:
+    file: subflows/seed.yaml
+    env:
+      SET: empty
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-blank-default
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- tapOn:
+    id: bar-add
+- tapOn:
+    id: add-photo
+- runFlow:
+    file: subflows/pick-photo.yaml
+    env:
+      PHOTO_DATE: January 02
+      PHOTO_DAY: Jan 2
+- extendedWaitUntil:
+    visible:
+      id: inspector-title
+      text: ".+\\.jpe?g"
+    timeout: 30000
+# 2000 px at 300 PPI = 169.33 mm wide (fits A4's printable width)
+- assertVisible:
+    id: field-w
+    text: "169.33 mm"
+- tapOn:
+    id: known-length
+- extendedWaitUntil:
+    visible:
+      id: known-stage
+    timeout: 10000
+- assertVisible:
+    id: known-now
+    text: "Between the circles now: 84.67 mm"
+# drag the circles (a finger is not exact either: ±2 % accepted, the true value is 101.6 mm → 166.67 mm wide)
+# drag the circles from 25 % / 75 % of the photo onto the ruler's 0 (20 %) and 100 (80 %) marks
+- runFlow:
+    when:
+      platform: iOS
+    file: subflows/known-drag-ios.yaml
+- runFlow:
+    when:
+      platform: Android
+    file: subflows/known-drag-android.yaml
+- assertVisible:
+    id: known-now
+    text: "Between the circles now: (99|10[0-3])\\.\\d+ mm"
+- assertVisible:
+    id: known-real
+    text: "100 mm"
+- assertVisible:
+    id: known-result
+    text: "Scale × (0\\.9[6-9]|1)\\d* → 1(6[4-9]|70)\\.\\d+ mm × 8[2-5]\\.\\d+ mm"
+- tapOn:
+    id: known-apply
+- assertVisible:
+    id: field-w
+    text: "1(6[4-9]|70)\\.\\d+ mm"
+- tapOn:
+    id: editor-print
+- assertVisible:
+    id: plan-summary
+    text: "1 page · A4, 1:1"

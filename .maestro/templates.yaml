@@ -1,0 +1,70 @@
+appId: ${APP_ID}
+name: Templates - U4 graph paper 5 mm bold 10 mm on Letter; U5 1 m ruler on 4 landscape A4 tiles + map
+tags:
+  - p5
+---
+- runFlow:
+    file: subflows/seed.yaml
+    env:
+      SET: empty
+# U4: New → Template → Graph paper 5 mm, bold every 10 mm, Letter
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-template
+- tapOn:
+    id: template-grid
+- assertVisible:
+    id: template-spacing
+    text: "5 mm"
+- assertVisible:
+    id: template-bold
+    text: "2"
+- tapOn:
+    id: template-paper-letter
+- tapOn:
+    id: template-create
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- assertVisible:
+    id: sheet-chip
+    text: ".*215.9 × 279.4 mm.*1 page Letter, 1:1.*"
+- tapOn:
+    id: editor-print
+- assertVisible:
+    id: plan-summary
+    text: "1 page · Letter, 1:1"
+- assertVisible:
+    id: page-1
+- runFlow: subflows/launch.yaml
+# U5: New → Template → Ruler 1000 mm → big sheet → 4 landscape A4 tiles with registration marks + map
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-template
+- tapOn:
+    id: template-ruler
+- tapOn:
+    id: template-length
+- eraseText: 20
+- inputText: "1000"
+- tapOn:
+    id: template-paper-a4
+- tapOn:
+    id: template-create
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- assertVisible:
+    id: sheet-chip
+    text: ".*1000 × 30 mm.*4 pages A4 landscape.*"
+- tapOn:
+    id: editor-print
+- assertVisible:
+    id: plan-summary
+    text: "5 pages · 4 tiles A4 landscape · assembly map"
+- assertVisible:
+    id: page-5

@@ -1,0 +1,60 @@
+appId: ${APP_ID}
+name: Units DE - A11 German UI, decimal comma and fractional inches in the length fields, refusals explained
+tags:
+  - p5
+---
+- runFlow:
+    file: subflows/seed.yaml
+    env:
+      SET: de
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-blank-default
+- extendedWaitUntil:
+    visible:
+      id: sheet-chip
+      text: ".*210 × 297 mm · 1 Seite A4, 1:1.*"
+    timeout: 15000
+- tapOn:
+    id: bar-add
+- tapOn:
+    id: add-rect
+- assertVisible:
+    id: inspector-title
+    text: "Rechteck"
+# decimal comma with a unit
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-w
+      TEXT: "7,5 cm"
+- assertVisible:
+    id: field-w
+    text: "75 mm"
+# fractional inches
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-h
+      TEXT: "3 1/16 in"
+- assertVisible:
+    id: field-h
+    text: "77,79 mm"
+# decimal point is accepted in German too (D31); a thousands separator is refused with a reason
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-x
+      TEXT: "12.5"
+- assertVisible:
+    id: field-x
+    text: "12,5 mm"
+- tapOn:
+    id: field-y
+- eraseText: 30
+- inputText: "1.000"
+- pressKey: Enter
+- assertVisible:
+    id: field-y-error
+    text: "Unklar.*"

@@ -1,0 +1,29 @@
+{
+  "source": "docs/SPEC.md §8 worked examples W2–W7 and W10, values as printed in the SPEC (hand-copied, not generated)",
+  "W2": [
+    { "px": [4032, 3024], "widthMm": 40, "heightMm": 30, "ppi": 2560.3, "band": "sharp" },
+    { "px": [4032, 3024], "widthMm": 300, "heightMm": 225, "ppi": 341.4 },
+    { "px": [800, 600], "widthMm": 100, "heightMm": 75, "ppi": 203.2, "band": "fine" }
+  ],
+  "W3": [
+    { "paper": "a4", "sheet": [600, 900], "content": [197.3, 284.3], "step": [187.3, 274.3], "portrait": 16, "landscape": 15, "auto": "landscape", "pagesWithMap": 16 },
+    { "paper": "letter", "sheet": [600, 900], "portrait": 16, "landscape": 15, "auto": "landscape" }
+  ],
+  "W4": { "paper": "a4", "sheet": [1000, 30], "portrait": [6, 1], "landscape": [4, 1], "auto": "landscape", "map": true },
+  "W5": [
+    { "paper": "a4", "sheet": [420, 594], "portrait": [3, 3], "landscape": [2, 4], "auto": "landscape" },
+    { "paper": "a4", "sheet": [841, 1189], "portraitPages": 25, "landscapePages": 28, "auto": "portrait" }
+  ],
+  "W6": [
+    { "paper": "a4", "safe": [197.3, 284.3], "item": [50, 30], "gap": 2, "cols": 3, "rows": 8 },
+    { "paper": "letter", "safe": [203.2, 266.7], "item": [50, 30], "gap": 2, "cols": 3, "rows": 8 }
+  ],
+  "W7": [
+    { "nominal": 100, "measured": 96.5, "scale": 0.965, "correction": 1.03627, "verdict": "explain", "cause": "fitToPage", "x20OnA4": 16.9171 },
+    { "nominal": 100, "measured": 100.4, "correction": 0.99602, "verdict": "slight" },
+    { "nominal": 100, "measured": 97.27, "cause": "paperMismatch" }
+  ],
+  "U3": { "barA": [150, 149.0], "barB": [200, 199.5], "fx": 1.0067, "fy": 1.0025 },
+  "W10": { "pxWidth": 4000, "widthMm": 200, "pointsApartPx": 812, "lengthMm": 50, "factor": 1.231527, "newWidthMm": 246.3054 },
+  "tolerance": { "mm": 0.00005, "ppi": 0.05, "factor": 0.0000005 }
+}

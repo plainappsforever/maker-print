@@ -1,0 +1,6 @@
+appId: ${APP_ID}
+---
+- extendedWaitUntil:
+    visible: "Photo, ${PHOTO_DATE}, 10:00"
+    timeout: 15000
+- tapOn: "Photo, ${PHOTO_DATE}, 10:00"

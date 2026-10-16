@@ -1,0 +1,70 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+example
+
+# generated native folders
+/ios
+/android
+
+# Local artifacts (Maestro screenshots, logs)
+artifacts/
+
+# Local Expo module build output (safe-share lesson)
+modules/*/android/build/
+
+# P3.5 review oracle: generated data (python3 scripts/oracle/review/review_oracle.py and engine_run.mjs recreate it)
+scripts/oracle/review/cases.json
+scripts/oracle/review/engine.json
+# CoreGraphics measuring tools: compiled from the .swift next to them (scripts/cg/build.sh)
+scripts/cg/crop
+scripts/cg/encpdf
+scripts/cg/imgio
+scripts/cg/rmeasure
+scripts/cg/srcinfo
+test/blind/stress/
+
+# Android upload key (owner-created, never committed)
+keystore.properties
+*.keystore
+!android/app/debug.keystore
+google-services.json
+GoogleService-Info.plist
+.env
+.env.*
+test/fixtures/real/

@@ -1,0 +1,11 @@
+appId: ${APP_ID}
+# Pixel 9 emulator (1080 × 2424 px): the stage is [53,353]–[1028,838]; circles at x 297 / 784, y 595
+---
+- swipe:
+    start: 297, 595
+    end: 246, 595
+    duration: 800
+- swipe:
+    start: 784, 595
+    end: 835, 595
+    duration: 800

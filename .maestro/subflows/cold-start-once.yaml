@@ -1,0 +1,10 @@
+# One cold start: the app is stopped, launched, and we wait for the Projects screen (testID projects-screen).
+appId: ${APP_ID}
+---
+- stopApp
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible:
+      id: projects-screen
+    timeout: 60000

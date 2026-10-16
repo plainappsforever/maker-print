@@ -1,0 +1,7 @@
+appId: ${APP_ID}
+# Android photo picker: photos are labelled by date ("Photo taken on Jan 1, 2026 10:00 AM").
+---
+- extendedWaitUntil:
+    visible: "Photo taken on ${PHOTO_DAY}, 2026 10:00 AM"
+    timeout: 15000
+- tapOn: "Photo taken on ${PHOTO_DAY}, 2026 10:00 AM"

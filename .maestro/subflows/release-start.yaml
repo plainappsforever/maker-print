@@ -1,0 +1,28 @@
+appId: ${APP_ID}
+# Release builds have no debug seeds (D82): start from a wiped app and set what every dev seed pins — millimetres and A4
+# (a US simulator/emulator would otherwise default to inches and Letter, D22). Ends on a fresh Projects screen.
+---
+- launchApp:
+    stopApp: true
+    clearState: true
+- extendedWaitUntil:
+    visible:
+      id: projects-screen
+    timeout: 90000
+- tapOn:
+    id: open-settings
+- assertVisible:
+    id: settings-screen
+- scrollUntilVisible:
+    element:
+      id: set-units-mm
+    centerElement: true
+- tapOn:
+    id: set-units-mm
+- scrollUntilVisible:
+    element:
+      id: set-paper-a4
+    centerElement: true
+- tapOn:
+    id: set-paper-a4
+- runFlow: launch.yaml

@@ -1,0 +1,379 @@
+{
+ "name": "05-svg-set",
+ "about": "SVG exporter styles at 100 %: Inkscape mm (layer transform), Inkscape px (96), Illustrator 72 ppi (<style> classes, polyline, miter join), <use>/<symbol>, nested transforms + arcs, Figma clip-path (96), Cricut inches, Affinity 100 % width (96, sheet 2).",
+ "sheets": [
+  {
+   "id": 1,
+   "widthMm": 210,
+   "heightMm": 297
+  },
+  {
+   "id": 2,
+   "widthMm": 210,
+   "heightMm": 297
+  }
+ ],
+ "assets": [
+  {
+   "id": 1,
+   "kind": "svg",
+   "file": "svg/inkscape-mm.svg"
+  },
+  {
+   "id": 2,
+   "kind": "svg",
+   "file": "svg/inkscape-px96.svg",
+   "svgPxPerIn": 96
+  },
+  {
+   "id": 3,
+   "kind": "svg",
+   "file": "svg/illustrator-72.svg",
+   "svgPxPerIn": 72
+  },
+  {
+   "id": 4,
+   "kind": "svg",
+   "file": "svg/use-symbol.svg"
+  },
+  {
+   "id": 5,
+   "kind": "svg",
+   "file": "svg/transforms-arcs.svg"
+  },
+  {
+   "id": 6,
+   "kind": "svg",
+   "file": "svg/figma-clip.svg",
+   "svgPxPerIn": 96
+  },
+  {
+   "id": 7,
+   "kind": "svg",
+   "file": "svg/cricut-in.svg"
+  },
+  {
+   "id": 8,
+   "kind": "svg",
+   "file": "svg/affinity-percent.svg",
+   "svgPxPerIn": 96
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "sheetId": 1,
+   "kind": "svg",
+   "x": 15,
+   "y": 15,
+   "w": 100,
+   "h": 50,
+   "assetId": 1
+  },
+  {
+   "id": 2,
+   "sheetId": 1,
+   "kind": "svg",
+   "x": 15,
+   "y": 70,
+   "w": 101.6,
+   "h": 50.8,
+   "assetId": 2
+  },
+  {
+   "id": 3,
+   "sheetId": 1,
+   "kind": "svg",
+   "x": 15,
+   "y": 125,
+   "w": 101.6,
+   "h": 50.8,
+   "assetId": 3
+  },
+  {
+   "id": 4,
+   "sheetId": 1,
+   "kind": "svg",
+   "x": 120,
+   "y": 15,
+   "w": 80,
+   "h": 40,
+   "assetId": 4
+  },
+  {
+   "id": 5,
+   "sheetId": 1,
+   "kind": "svg",
+   "x": 120,
+   "y": 60,
+   "w": 60,
+   "h": 60,
+   "assetId": 5
+  },
+  {
+   "id": 6,
+   "sheetId": 1,
+   "kind": "svg",
+   "x": 120,
+   "y": 125,
+   "w": 26.458333333333332,
+   "h": 15.875,
+   "assetId": 6
+  },
+  {
+   "id": 7,
+   "sheetId": 1,
+   "kind": "svg",
+   "x": 15,
+   "y": 180,
+   "w": 101.6,
+   "h": 50.8,
+   "assetId": 7
+  },
+  {
+   "id": 8,
+   "sheetId": 2,
+   "kind": "svg",
+   "x": 20,
+   "y": 20,
+   "w": 105.83333333333333,
+   "h": 52.916666666666664,
+   "assetId": 8
+  }
+ ],
+ "output": {
+  "paperKey": "a4"
+ },
+ "expect": {
+  "pageCount": 2,
+  "pageSizeMm": [
+   210,
+   297
+  ],
+  "features": [
+   {
+    "id": "Inkscape mm: rect",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     23.5,
+     23.5,
+     33.0,
+     23.0
+    ],
+    "expect": {
+     "l": 25,
+     "t": 25,
+     "r": 55,
+     "b": 45,
+     "area": 600.0
+    }
+   },
+   {
+    "id": "Inkscape mm: circle r15",
+    "page": 0,
+    "colour": "blue",
+    "rect": [
+     68.5,
+     23.5,
+     33.0,
+     33.0
+    ],
+    "expect": {
+     "l": 70,
+     "t": 25,
+     "r": 100,
+     "b": 55,
+     "cx": 85,
+     "cy": 40,
+     "area": 706.858347
+    }
+   },
+   {
+    "id": "Inkscape px @96",
+    "page": 0,
+    "colour": "green",
+    "rect": [
+     26.2,
+     81.2,
+     28.4,
+     15.7
+    ],
+    "expect": {
+     "l": 27.7,
+     "t": 82.7,
+     "r": 53.1,
+     "b": 95.4,
+     "area": 322.58
+    }
+   },
+   {
+    "id": "Illustrator @72: .st0 rect",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     26.2,
+     136.2,
+     28.4,
+     15.7
+    ],
+    "expect": {
+     "l": 27.7,
+     "t": 137.7,
+     "r": 53.1,
+     "b": 150.4,
+     "area": 322.58
+    }
+   },
+   {
+    "id": "Illustrator @72: .st1 polyline (2 px stroke, miter)",
+    "page": 0,
+    "colour": "blue",
+    "rect": [
+     64.3,
+     135.8472,
+     28.7528,
+     28.7528
+    ],
+    "expect": {
+     "l": 65.8,
+     "t": 137.347222,
+     "r": 91.552778,
+     "b": 163.1
+    }
+   },
+   {
+    "id": "<use> of <symbol> (viewBox 10 → 20 mm)",
+    "page": 0,
+    "colour": "green",
+    "rect": [
+     128.5,
+     23.5,
+     23.0,
+     23.0
+    ],
+    "expect": {
+     "l": 130,
+     "t": 25,
+     "r": 150,
+     "b": 45,
+     "cx": 140,
+     "cy": 35,
+     "area": 314.159265
+    }
+   },
+   {
+    "id": "<use> of rect at x=50",
+    "page": 0,
+    "colour": "magenta",
+    "rect": [
+     168.5,
+     23.5,
+     13.0,
+     13.0
+    ],
+    "expect": {
+     "l": 170,
+     "t": 25,
+     "r": 180,
+     "b": 35,
+     "area": 100.0
+    }
+   },
+   {
+    "id": "translate + rotate(90) rect",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     133.5,
+     68.5,
+     33.0,
+     13.0
+    ],
+    "expect": {
+     "l": 135,
+     "t": 70,
+     "r": 165,
+     "b": 80,
+     "cx": 150,
+     "cy": 75,
+     "area": 300.0
+    }
+   },
+   {
+    "id": "two-arc disc",
+    "page": 0,
+    "colour": "blue",
+    "rect": [
+     138.5,
+     88.5,
+     23.0,
+     23.0
+    ],
+    "expect": {
+     "l": 140,
+     "t": 90,
+     "r": 160,
+     "b": 110,
+     "cx": 150,
+     "cy": 100,
+     "area": 314.159265
+    }
+   },
+   {
+    "id": "Figma clip-path",
+    "page": 0,
+    "colour": "magenta",
+    "rect": [
+     118.5,
+     126.1458,
+     16.2292,
+     8.2917
+    ],
+    "expect": {
+     "l": 120,
+     "t": 127.645833,
+     "r": 133.229167,
+     "b": 132.9375,
+     "area": 70.00434
+    }
+   },
+   {
+    "id": "Cricut 4 in",
+    "page": 0,
+    "colour": "green",
+    "rect": [
+     26.2,
+     191.2,
+     28.4,
+     15.7
+    ],
+    "expect": {
+     "l": 27.7,
+     "t": 192.7,
+     "r": 53.1,
+     "b": 205.4,
+     "area": 322.58
+    }
+   },
+   {
+    "id": "Affinity 100 % @96 (sheet 2)",
+    "page": 1,
+    "colour": "blue",
+    "rect": [
+     31.7292,
+     31.7292,
+     29.4583,
+     16.2292
+    ],
+    "expect": {
+     "l": 33.229167,
+     "t": 33.229167,
+     "r": 59.6875,
+     "b": 46.458333,
+     "area": 350.021701
+    }
+   }
+  ]
+ }
+}

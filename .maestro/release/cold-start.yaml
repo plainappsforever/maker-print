@@ -1,0 +1,15 @@
+appId: ${APP_ID}
+name: Release cold start - 5 launches from a stopped app until the Projects screen is visible (timings are read from Maestro's log by scripts/cold-start-times.mjs)
+tags:
+  - release
+---
+- runFlow:
+    file: ../subflows/cold-start-once.yaml
+- runFlow:
+    file: ../subflows/cold-start-once.yaml
+- runFlow:
+    file: ../subflows/cold-start-once.yaml
+- runFlow:
+    file: ../subflows/cold-start-once.yaml
+- runFlow:
+    file: ../subflows/cold-start-once.yaml

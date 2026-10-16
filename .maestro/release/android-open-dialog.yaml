@@ -1,0 +1,20 @@
+appId: ${APP_ID}
+name: Release print Android step 1 - wiped app, printer "Test printer" created in Calibrate, A4 sheet, print dialog opened (MODE cal)
+# Step 2 (scripts/vprinter/print-android-ui.sh with APP and OPEN_FLOW) picks the virtual printer or "Save as PDF" and asserts it before Print.
+---
+- runFlow:
+    file: ../subflows/release-start.yaml
+- tapOn:
+    id: open-calibrate
+- tapOn:
+    id: cal-new-profile
+- inputText: "Test printer"
+- pressKey: Enter
+- tapOn:
+    id: paper-a4
+- tapOn:
+    id: print-calibration
+- extendedWaitUntil:
+    visible:
+      id: com.android.printspooler:id/destination_spinner
+    timeout: 30000

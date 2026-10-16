@@ -1,0 +1,168 @@
+{
+ "name": "08-ruler-w4",
+ "about": "SPEC W4: 1 000 × 30 mm ruler on A4 → 4 landscape tiles + map, turned onto portrait A4 (D53); every 1 mm tick of each tile measured, and the 280 mm tick printed on both A1 and A2 coincides after the 274.3 mm sheet offset.",
+ "sheets": [
+  {
+   "id": 1,
+   "widthMm": 1000,
+   "heightMm": 30
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "sheetId": 1,
+   "kind": "ruler",
+   "x": 0,
+   "y": 0,
+   "w": 1000,
+   "h": 30,
+   "props": {
+    "colour": "#ff0000",
+    "unit": "mm"
+   }
+  }
+ ],
+ "output": {
+  "paperKey": "a4"
+ },
+ "expect": {
+  "pageCount": 5,
+  "pageSizeMm": [
+   210,
+   297
+  ],
+  "paperMm": [
+   210,
+   297
+  ],
+  "allow": [
+   {
+    "page": "*",
+    "colour": "red"
+   }
+  ],
+  "features": [
+   {
+    "id": "A1 ticks 1..283",
+    "page": 1,
+    "colour": "red",
+    "rect": [
+     6.6,
+     6.8,
+     1.0,
+     283.4
+    ],
+    "expect": {
+     "ticks": 283,
+     "last": 289.65,
+     "first": 7.65,
+     "maxStepError": 0.05
+    },
+    "mode": "ticks",
+    "axis": "y",
+    "minTickMm": 0.6,
+    "step": 1
+   },
+   {
+    "id": "A2 ticks 275..558",
+    "page": 2,
+    "colour": "red",
+    "rect": [
+     6.6,
+     6.6,
+     1.0,
+     283.6
+    ],
+    "expect": {
+     "ticks": 284,
+     "last": 289.95,
+     "first": 6.95,
+     "maxStepError": 0.05
+    },
+    "mode": "ticks",
+    "axis": "y",
+    "minTickMm": 0.6,
+    "step": 1
+   },
+   {
+    "id": "A3 ticks 550..832",
+    "page": 3,
+    "colour": "red",
+    "rect": [
+     6.6,
+     6.6,
+     1.0,
+     283.45
+    ],
+    "expect": {
+     "ticks": 283,
+     "last": 289.25,
+     "first": 7.25,
+     "maxStepError": 0.05
+    },
+    "mode": "ticks",
+    "axis": "y",
+    "minTickMm": 0.6,
+    "step": 1
+   },
+   {
+    "id": "A4 ticks 824..999",
+    "page": 4,
+    "colour": "red",
+    "rect": [
+     6.6,
+     114.0,
+     1.0,
+     176.2
+    ],
+    "expect": {
+     "ticks": 176,
+     "last": 289.55,
+     "first": 114.55,
+     "maxStepError": 0.05
+    },
+    "mode": "ticks",
+    "axis": "y",
+    "minTickMm": 0.6,
+    "step": 1
+   },
+   {
+    "id": "tick 280 on A1",
+    "page": 1,
+    "colour": "red",
+    "rect": [
+     6.6,
+     10.15,
+     1.0,
+     1.0
+    ],
+    "expect": {
+     "cy": 10.65
+    }
+   },
+   {
+    "id": "tick 280 on A2",
+    "page": 2,
+    "colour": "red",
+    "rect": [
+     6.6,
+     284.45,
+     1.0,
+     1.0
+    ],
+    "expect": {
+     "cy": 284.95
+    }
+   }
+  ],
+  "same": [
+   {
+    "a": "tick 280 on A1",
+    "b": "tick 280 on A2",
+    "dx": null,
+    "dy": 274.3
+   }
+  ]
+ }
+}

@@ -1,0 +1,24 @@
+appId: ${APP_ID}
+name: Measure - Android print step 1 - open the print dialog for fixture NAME / ROUTE and its printer list
+# Needs scripts/vprinter.sh start, `adb -s emulator-5650 reverse tcp:8631 tcp:8631` not required (10.0.2.2), and
+# "MakerPrint Test" added once in Default Print Service by IP 10.0.2.2:8631 (V1_LOG P4). A REAL printer is visible on
+# this network: the flow asserts that MakerPrint Test is the selected destination before it taps Print.
+---
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible:
+      id: projects-screen
+    timeout: 90000
+- openLink: makerprint-dev://debug
+- scrollUntilVisible:
+    element:
+      id: ${'print-' + NAME + '-' + ROUTE}
+- tapOn:
+    id: ${'print-' + NAME + '-' + ROUTE}
+- extendedWaitUntil:
+    visible:
+      id: com.android.printspooler:id/destination_spinner
+    timeout: 30000
+- tapOn:
+    id: com.android.printspooler:id/destination_spinner

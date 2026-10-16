@@ -1,0 +1,12 @@
+appId: ${APP_ID}
+---
+- extendedWaitUntil:
+    visible: "Browse"
+    timeout: 15000
+- tapOn:
+    text: "Browse"
+- tapOn:
+    text: "On My iPhone"
+    optional: true
+- tapOn:
+    text: "${FILE}, .*"

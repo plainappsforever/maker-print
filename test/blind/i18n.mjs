@@ -1,0 +1,15 @@
+const en = (await import(new URL('../../src/i18n/en.ts', import.meta.url).pathname)).default ?? (await import(new URL('../../src/i18n/en.ts', import.meta.url).pathname)).en;
+const deM = await import(new URL('../../src/i18n/de.ts', import.meta.url).pathname);
+const de = deM.default ?? deM.de;
+const flat = (o, p = '') => Object.entries(o).flatMap(([k, v]) => (typeof v === 'object' ? flat(v, p + k + '.') : [[p + k, v]]));
+const E = new Map(flat(en)), D = new Map(flat(de));
+const ph = (s) => [...String(s).matchAll(/\{\{?\s*(\w+)\s*\}?\}/g)].map((m) => m[1]).sort().join(',');
+const miss = [...E.keys()].filter((k) => !D.has(k)), extra = [...D.keys()].filter((k) => !E.has(k));
+const phd = [...E.keys()].filter((k) => D.has(k) && ph(E.get(k)) !== ph(D.get(k)));
+const same = [...E.keys()].filter((k) => D.has(k) && E.get(k) === D.get(k) && /[a-z]{4}/.test(E.get(k)));
+console.log('keys en', E.size, 'de', D.size, 'missing in de', miss, 'extra in de', extra, 'placeholder diffs', phd, 'identical EN=DE (untranslated?)', same.slice(0, 20));
+const plan = await import(new URL('../../src/engine/plan.ts', import.meta.url).pathname);
+const rep = await import(new URL('../../src/import/svg/report.ts', import.meta.url).pathname);
+console.log('warning codes without warn.* key', plan.WARNING_CODES.filter((c) => !E.has('warn.' + c)));
+console.log('svg issue codes', Object.keys(rep.SVG_ISSUE_SEVERITY).length, 'without key', Object.keys(rep.SVG_ISSUE_SEVERITY).filter((c) => ![...E.keys()].some((k) => k.endsWith('.' + c))));
+console.log('clipPath text EN:', [...E.entries()].filter(([k]) => /clipPath|switch|annot|layer|ocg/i.test(k)));

@@ -1,0 +1,205 @@
+appId: ${APP_ID}
+name: Print export - W4 ruler with saved corrections, real-PDF previews, tap-to-exclude, assembly map option, Export PDF share sheet, print dialog opened and cancelled (nothing printed), Android one-by-one
+tags:
+  - p6
+---
+- runFlow:
+    file: subflows/seed.yaml
+    env:
+      SET: w4cal
+- tapOn:
+    id: project-0
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- tapOn:
+    id: editor-print
+- extendedWaitUntil:
+    visible:
+      id: page-2-raster
+    timeout: 30000
+- assertVisible:
+    id: plan-summary
+    text: "5 pages · 4 tiles A4 landscape · assembly map"
+- assertVisible:
+    id: preview-source
+    text: "Previews are drawn from the PDF that is sent."
+# iOS: every job takes the single-page correction (the renderer prints each page at scale 1), Scaling help shown
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - assertVisible:
+          id: print-guidance
+          text: "In the print dialog keep Scaling at 100 % and choose A4 paper.*"
+      - assertVisible:
+          id: warning-correctionApplied
+          text: ".*Correction ×1.0067 / ×1.0025 for A4, single page.*"
+# Android: a multi-page check exists → one job with the multi-page correction; one-by-one offered, off
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - assertVisible:
+          id: print-guidance
+          text: "In the print dialog choose A4 paper and do not use Fit to page.*"
+      - assertVisible:
+          id: warning-correctionApplied
+          text: ".*Correction ×1.0646 / ×1.0644 for A4, multi-page.*"
+      - assertVisible:
+          id: one-by-one-why
+          text: "All pages go as one job, with this printer’s multi-page correction."
+# v1.1 (REVIEW_V1 finding 7, D83): the seed prints without a check bar — said on iOS; on Android the enlarging multi-page
+# correction forces it on
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - assertVisible:
+          id: warning-checkBarOff
+          text: ".*No check bar: nothing on the paper proves the size.*"
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - assertVisible:
+          id: warning-checkBarForced
+          text: ".*The check bar is printed although it is switched off.*"
+# tap-to-exclude: tile A2 (page 3) is left out (3 tiles left → no automatic map), then put back
+# (a tap that lands while the preview PDF is being written can be lost once: retried)
+- retry:
+    maxRetries: 2
+    commands:
+      - tapOn:
+          id: page-3
+      - extendedWaitUntil:
+          visible:
+            id: plan-summary
+            text: "3 pages · 3 tiles A4 landscape"
+          timeout: 10000
+- scrollUntilVisible:
+    element:
+      id: excluded-A2
+    centerElement: true
+- retry:
+    maxRetries: 2
+    commands:
+      - tapOn:
+          id: excluded-A2
+      - extendedWaitUntil:
+          notVisible:
+            id: excluded-A2
+          timeout: 10000
+- scrollUntilVisible:
+    element:
+      id: plan-summary
+      text: "5 pages · 4 tiles A4 landscape · assembly map"
+    direction: UP
+# assembly map off, then automatic again
+- scrollUntilVisible:
+    element:
+      id: print-map-off
+    centerElement: true
+- tapOn:
+    id: print-map-off
+- scrollUntilVisible:
+    element:
+      id: plan-summary
+      text: "4 pages · 4 tiles A4 landscape"
+    direction: UP
+- scrollUntilVisible:
+    element:
+      id: print-map-auto
+    centerElement: true
+- tapOn:
+    id: print-map-auto
+- scrollUntilVisible:
+    element:
+      id: plan-summary
+      text: "5 pages · 4 tiles A4 landscape · assembly map"
+    direction: UP
+- extendedWaitUntil:
+    visible:
+      id: page-2-raster
+    timeout: 30000
+# Export PDF → the system share sheet with the file; closed without sharing
+- tapOn:
+    id: export-button
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - extendedWaitUntil:
+          visible: "W4-ruler-a4-20..-..-.."
+          timeout: 20000
+      - assertVisible: "PDF Document.*"
+      # tap outside the sheet (the popover's dismiss region) — never on the sheet's own Print action
+      - tapOn:
+          point: "50%,20%"
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - extendedWaitUntil:
+          visible: ".*(Share|W4-ruler-a4).*"
+          timeout: 20000
+      - back
+- extendedWaitUntil:
+    visible:
+      id: print-outcome-0
+      text: "PDF ready: W4-ruler-a4-20..-..-..\\.pdf \\(5 pages, exact size, without printer correction\\)\\."
+    timeout: 20000
+# Print → the system print dialog opens; it is CANCELLED (a real printer is on this network — never tap Print here)
+- tapOn:
+    id: print-button
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - extendedWaitUntil:
+          visible: "Printer"
+          timeout: 30000
+      - assertVisible: "Scaling"
+      - assertVisible: "100%"
+      - tapOn: "Close"
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - extendedWaitUntil:
+          visible:
+            id: com.android.printspooler:id/destination_spinner
+          timeout: 30000
+      - back
+- extendedWaitUntil:
+    visible:
+      id: print-outcome-0
+      text: "Not printed."
+    timeout: 30000
+# Android: print pages one by one — the first page's dialog opens; cancelled → the series stops and can continue
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - tapOn:
+          id: toggle-one-by-one
+      - assertVisible:
+          id: one-by-one-why
+          text: "Each of the 5 pages opens its own print dialog.*"
+      - assertVisible:
+          id: warning-correctionApplied
+          text: ".*Correction ×1.0067 / ×1.0025 for A4, single page.*"
+      - tapOn:
+          id: print-button
+          text: "Print 5 pages one by one"
+      - extendedWaitUntil:
+          visible:
+            id: com.android.printspooler:id/destination_spinner
+          timeout: 30000
+      - back
+      - extendedWaitUntil:
+          visible:
+            id: print-continue
+            text: "Continue from page 1"
+          timeout: 30000

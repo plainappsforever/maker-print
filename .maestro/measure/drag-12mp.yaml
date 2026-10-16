@@ -1,0 +1,49 @@
+appId: ${APP_ID}
+name: Measure - A13 drag a 12 MP photo on the canvas (editor uses its 2048 px preview copy)
+---
+- runFlow:
+    file: ../subflows/seed.yaml
+    env:
+      SET: empty
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-blank-default
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- tapOn:
+    id: bar-add
+- tapOn:
+    id: add-photo
+- runFlow:
+    file: ../subflows/pick-photo.yaml
+    env:
+      PHOTO_DATE: January 03
+      PHOTO_DAY: Jan 3
+- extendedWaitUntil:
+    visible:
+      id: field-w
+      text: "197.3 mm"
+    timeout: 60000
+- tapOn:
+    id: bar-edit
+- waitForAnimationToEnd
+- swipe:
+    start: 50%, 50%
+    end: 70%, 60%
+    duration: 1500
+- swipe:
+    start: 70%, 60%
+    end: 40%, 45%
+    duration: 1500
+- swipe:
+    start: 40%, 45%
+    end: 58%, 50%
+    duration: 1500
+- tapOn:
+    id: bar-edit
+- assertNotVisible:
+    id: field-x
+    text: "6.35 mm"

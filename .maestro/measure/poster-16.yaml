@@ -1,0 +1,33 @@
+appId: ${APP_ID}
+name: Measure - 600 × 900 mm SVG poster, portrait A4 = 16 tiles + map previewed (memory sampled by the caller)
+---
+- runFlow:
+    file: ../subflows/seed.yaml
+    env:
+      SET: empty
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-file
+- runFlow:
+    file: ../subflows/pick-file.yaml
+    env:
+      FILE: poster-600x900
+- extendedWaitUntil:
+    visible:
+      id: sheet-chip
+      text: ".*600 × 900 mm · 15 pages A4 landscape.*"
+    timeout: 60000
+- tapOn:
+    id: editor-print
+- tapOn:
+    id: print-orientation-portrait
+- extendedWaitUntil:
+    visible:
+      id: plan-summary
+      text: "17 pages · 16 tiles A4 portrait · assembly map"
+    timeout: 30000
+- scrollUntilVisible:
+    element:
+      id: page-17
+    direction: DOWN

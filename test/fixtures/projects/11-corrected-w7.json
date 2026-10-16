@@ -1,0 +1,86 @@
+{
+ "name": "11-corrected-w7",
+ "about": "Single page A4 with the stored correction c = 100/96.5 = 1.036269 (W7) about the page centre: a 50×40 rect at (20, 30) and the check bar (100 mm → 100·c in the PDF, A4). c > 1 moves the bar into the printer margin by design (owner question 1, D44): margin check off here.",
+ "sheets": [
+  {
+   "id": 1,
+   "widthMm": 210,
+   "heightMm": 297
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "sheetId": 1,
+   "kind": "rect",
+   "x": 20,
+   "y": 30,
+   "w": 50,
+   "h": 40,
+   "props": {
+    "fill": "#ff0000",
+    "stroke": null
+   }
+  }
+ ],
+ "output": {
+  "paperKey": "a4",
+  "checkBar": true
+ },
+ "corrections": [
+  {
+   "paperKey": "a4",
+   "jobKind": "single",
+   "fx": 1.0362694300518134,
+   "fy": 1.0362694300518134
+  }
+ ],
+ "applyCorrection": true,
+ "expect": {
+  "pageCount": 1,
+  "pageSizeMm": [
+   210,
+   297
+  ],
+  "marginCheck": false,
+  "features": [
+   {
+    "id": "corrected rect",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     15.4171,
+     24.2021,
+     54.8135,
+     44.4508
+    ],
+    "expect": {
+     "l": 16.917098,
+     "t": 25.702073,
+     "r": 68.73057,
+     "b": 67.15285
+    }
+   },
+   {
+    "id": "check bar 0..100 (×c)",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     0,
+     240,
+     210,
+     57
+    ],
+    "expect": {
+     "ticks": 11,
+     "span": 103.626943,
+     "maxStepError": 0.05
+    },
+    "mode": "ticks",
+    "axis": "x",
+    "minTickMm": 1.8,
+    "step": 10.362694300518134
+   }
+  ]
+ }
+}

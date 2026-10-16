@@ -1,0 +1,16 @@
+appId: ${APP_ID}
+# Picks FILE (name without extension) in the system document picker: iOS Files → On My iPhone; Android → Downloads.
+# scripts/e2e-files.sh puts the fixtures there.
+---
+- runFlow:
+    when:
+      platform: iOS
+    file: pick-file-ios.yaml
+    env:
+      FILE: ${FILE}
+- runFlow:
+    when:
+      platform: Android
+    file: pick-file-android.yaml
+    env:
+      FILE: ${FILE}

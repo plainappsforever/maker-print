@@ -1,0 +1,13 @@
+appId: ${APP_ID}
+# Scrolls the editor's bottom panel (not the canvas above it) until element ID is on screen.
+---
+- repeat:
+    while:
+      notVisible:
+        id: ${ID}
+    times: 10
+    commands:
+      - swipe:
+          start: "50%,86%"
+          end: "50%,66%"
+          duration: 500

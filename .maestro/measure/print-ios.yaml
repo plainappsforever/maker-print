@@ -1,0 +1,34 @@
+appId: ${APP_ID}
+name: Measure - iOS print a referee fixture to the virtual printer (NAME, ROUTE exact|fallback)
+# Needs scripts/vprinter.sh start. Prints ONLY to "MakerPrint Test" — never to a real printer on the network.
+---
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible:
+      id: projects-screen
+    timeout: 90000
+- runFlow:
+    file: ../subflows/open-link.yaml
+    env:
+      LINK: makerprint-dev://debug
+- scrollUntilVisible:
+    element:
+      id: ${'print-' + NAME + '-' + ROUTE}
+- tapOn:
+    id: ${'print-' + NAME + '-' + ROUTE}
+- extendedWaitUntil:
+    visible: "Printer"
+    timeout: 30000
+- tapOn: "Printer"
+- extendedWaitUntil:
+    visible: "MakerPrint Test"
+    timeout: 30000
+- tapOn: "MakerPrint Test"
+- waitForAnimationToEnd
+- tapOn: "Print"
+- extendedWaitUntil:
+    visible:
+      id: print-outcome
+      text: "PRINT ${NAME}.*"
+    timeout: 60000

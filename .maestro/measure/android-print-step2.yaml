@@ -1,0 +1,22 @@
+appId: ${APP_ID}
+name: Measure - Android step 2 (P6) - PRINTER (the virtual printer) is the destination, then Print; waits for OUTCOME
+# A REAL printer is visible on this network: Print is tapped only after asserting that PRINTER is selected.
+---
+- extendedWaitUntil:
+    visible:
+      id: com.android.printspooler:id/print_button
+    timeout: 60000
+- assertVisible:
+    id: com.android.printspooler:id/title
+    text: ${PRINTER}
+- assertNotVisible: "Brother.*"
+- tapOn:
+    id: com.android.printspooler:id/print_button
+- tapOn:
+    text: "OK"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: ${OUTCOME}
+      text: ${TEXT}
+    timeout: 120000

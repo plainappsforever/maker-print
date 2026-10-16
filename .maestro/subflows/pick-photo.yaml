@@ -1,0 +1,15 @@
+appId: ${APP_ID}
+# Picks the photo dated PHOTO_DATE ("January 01") in the system photo picker (scripts/e2e-files.sh dates them).
+---
+- runFlow:
+    when:
+      platform: iOS
+    file: pick-photo-ios.yaml
+    env:
+      PHOTO_DATE: ${PHOTO_DATE}
+- runFlow:
+    when:
+      platform: Android
+    file: pick-photo-android.yaml
+    env:
+      PHOTO_DAY: ${PHOTO_DAY}

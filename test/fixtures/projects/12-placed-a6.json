@@ -1,0 +1,116 @@
+{
+ "name": "12-placed-a6",
+ "about": "A6 sheet centred on A4 with crop marks and the uncorrected check bar (100 mm).",
+ "sheets": [
+  {
+   "id": 1,
+   "widthMm": 105,
+   "heightMm": 148
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "sheetId": 1,
+   "kind": "rect",
+   "x": 10,
+   "y": 10,
+   "w": 20,
+   "h": 20,
+   "props": {
+    "fill": "#ff0000",
+    "stroke": null
+   }
+  }
+ ],
+ "output": {
+  "paperKey": "a4",
+  "checkBar": true
+ },
+ "expect": {
+  "pageCount": 1,
+  "pageSizeMm": [
+   210,
+   297
+  ],
+  "features": [
+   {
+    "id": "rect on placed sheet",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     61.0,
+     83.0,
+     23.0,
+     23.0
+    ],
+    "expect": {
+     "l": 62.5,
+     "t": 84.5,
+     "r": 82.5,
+     "b": 104.5
+    }
+   },
+   {
+    "id": "crop marks top (x)",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     45,
+     68.8,
+     120,
+     4.4
+    ],
+    "expect": {
+     "positions": [
+      52.5,
+      157.5
+     ]
+    },
+    "mode": "ticks",
+    "axis": "x",
+    "minTickMm": 3
+   },
+   {
+    "id": "crop marks left (y)",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     46.8,
+     70,
+     4.4,
+     157
+    ],
+    "expect": {
+     "positions": [
+      74.5,
+      222.5
+     ]
+    },
+    "mode": "ticks",
+    "axis": "y",
+    "minTickMm": 3
+   },
+   {
+    "id": "check bar 0..100",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     6.35,
+     240,
+     197.3,
+     50.65
+    ],
+    "expect": {
+     "ticks": 11,
+     "span": 100.0,
+     "maxStepError": 0.05
+    },
+    "mode": "ticks",
+    "axis": "x",
+    "minTickMm": 1.8,
+    "step": 10
+   }
+  ]
+ }
+}

@@ -1,0 +1,157 @@
+{
+ "name": "07-tiling-w3",
+ "about": "SPEC W3: 600×900 mm on A4 → landscape 3×5 = 15 tiles + assembly map, every page portrait A4 with the landscape frame turned onto it (D53); tile content alignment and registration marks of neighbours coincide after the sheet offset (A3).",
+ "sheets": [
+  {
+   "id": 1,
+   "widthMm": 600,
+   "heightMm": 900
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "sheetId": 1,
+   "kind": "rect",
+   "x": 240,
+   "y": 160,
+   "w": 30,
+   "h": 70,
+   "props": {
+    "fill": "#ff0000",
+    "stroke": null
+   }
+  }
+ ],
+ "output": {
+  "paperKey": "a4",
+  "skipBlank": false
+ },
+ "expect": {
+  "pageCount": 16,
+  "pageSizeMm": [
+   210,
+   297
+  ],
+  "paperMm": [
+   210,
+   297
+  ],
+  "allow": [
+   {
+    "page": 0,
+    "colour": "red"
+   }
+  ],
+  "features": [
+   {
+    "id": "A1 red (clipped at content edge)",
+    "page": 1,
+    "colour": "red",
+    "rect": [
+     164.85,
+     19.15,
+     40.3,
+     33.0
+    ],
+    "expect": {
+     "t": 20.65,
+     "l": 166.35,
+     "b": 50.65,
+     "r": 203.65
+    }
+   },
+   {
+    "id": "B1 red",
+    "page": 4,
+    "colour": "red",
+    "rect": [
+     4.85,
+     19.15,
+     45.7,
+     33.0
+    ],
+    "expect": {
+     "t": 20.65,
+     "l": 6.35,
+     "b": 50.65,
+     "r": 49.05
+    }
+   },
+   {
+    "id": "A1 mark → A2",
+    "page": 1,
+    "colour": "ink",
+    "rect": [
+     50.875,
+     6.55,
+     9.6,
+     9.6
+    ],
+    "expect": {
+     "cy": 11.35,
+     "cx": 55.675
+    }
+   },
+   {
+    "id": "A2 mark ← A1",
+    "page": 2,
+    "colour": "ink",
+    "rect": [
+     50.875,
+     281.3,
+     9.6,
+     8.7
+    ],
+    "expect": {
+     "cy": 285.65,
+     "cx": 55.675
+    }
+   },
+   {
+    "id": "A1 mark ↓ B1",
+    "page": 1,
+    "colour": "ink",
+    "rect": [
+     193.85,
+     214.775,
+     9.6,
+     9.6
+    ],
+    "expect": {
+     "cy": 219.575,
+     "cx": 198.65
+    }
+   },
+   {
+    "id": "B1 mark ↑ A1",
+    "page": 4,
+    "colour": "ink",
+    "rect": [
+     7.0,
+     214.775,
+     8.7,
+     9.6
+    ],
+    "expect": {
+     "cy": 219.575,
+     "cx": 11.35
+    }
+   }
+  ],
+  "same": [
+   {
+    "a": "A1 mark → A2",
+    "b": "A2 mark ← A1",
+    "dx": 0,
+    "dy": 274.3
+   },
+   {
+    "a": "A1 mark ↓ B1",
+    "b": "B1 mark ↑ A1",
+    "dx": -187.3,
+    "dy": 0
+   }
+  ]
+ }
+}

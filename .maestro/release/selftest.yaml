@@ -1,0 +1,23 @@
+appId: ${APP_ID}
+name: Release selftest - the engine self-test on the Release Hermes (bytecode) build, via the preview debug link (D82)
+tags:
+  - release
+---
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible:
+      id: projects-screen
+    timeout: 90000
+- runFlow:
+    file: ../subflows/open-link.yaml
+    env:
+      LINK: ${SCHEME}://debug?run=selftest
+- extendedWaitUntil:
+    visible:
+      id: selftest-result
+      text: "SELFTEST (OK|FAIL).*"
+    timeout: 180000
+- assertVisible:
+    id: selftest-result
+    text: "SELFTEST OK.*"

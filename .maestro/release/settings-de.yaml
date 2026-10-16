@@ -1,0 +1,105 @@
+appId: ${APP_ID}
+name: Release - Settings DE - language Deutsch (UI switches at once), inches with 1/16, default paper Letter used by New, help page per platform, privacy page
+tags:
+  - release
+---
+- runFlow:
+    file: ../subflows/release-start.yaml
+    env:
+      SET: empty
+- tapOn:
+    id: open-settings
+- assertVisible:
+    id: settings-screen
+- tapOn:
+    id: set-language-de
+# the screens re-mount in German at once (no restart), the user stays on Settings
+- extendedWaitUntil:
+    visible: "Sprache"
+    timeout: 15000
+- assertVisible: "Einstellungen"
+- assertVisible:
+    id: set-language-de
+    selected: true
+- scrollUntilVisible:
+    element:
+      id: set-units-in
+    centerElement: true
+- tapOn:
+    id: set-units-in
+- tapOn:
+    id: set-inch-fraction16
+- scrollUntilVisible:
+    element:
+      id: set-paper-letter
+    centerElement: true
+- tapOn:
+    id: set-paper-letter
+- assertVisible:
+    id: set-margin
+    text: "1/4 in"
+# help page: per-platform "actual size" steps, the iOS Scaling control explained
+- scrollUntilVisible:
+    element:
+      id: open-help
+    direction: UP
+- tapOn:
+    id: open-help
+- assertVisible:
+    id: help-screen
+- assertVisible: "iPhone und iPad.*"
+- assertVisible: ".*Skalierung.*100 %.*"
+- runFlow: ../subflows/launch.yaml
+- tapOn:
+    id: open-settings
+- scrollUntilVisible:
+    element:
+      id: open-about
+    centerElement: true
+- tapOn:
+    id: open-about
+- assertVisible:
+    id: about-privacy
+    text: "Maker Print sammelt keine Daten.*"
+# v1.1: backups said per platform, the privacy page link and the licences screen (RELEASE_KIT 1c items 12, 13, 15)
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - assertVisible:
+          id: about-backup
+          text: "Deine Projekte sind nicht Teil der Sicherung des Telefons.*"
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - assertVisible:
+          id: about-backup
+          text: "Deine Projekte sind Teil der eigenen Sicherung deines iPhones.*"
+- assertVisible:
+    id: about-privacy-link
+- scrollUntilVisible:
+    element:
+      id: open-licences
+    centerElement: true
+- tapOn:
+    id: open-licences
+- extendedWaitUntil:
+    visible:
+      id: licence-@cantoo/pdf-lib
+    timeout: 10000
+- tapOn:
+    id: licence-@cantoo/pdf-lib
+- assertVisible: ".*Permission is hereby granted.*"
+# the settings are used: New → blank sheet on the default paper, lengths in inches
+- runFlow: ../subflows/launch.yaml
+- assertVisible: "Projekte"
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-blank-default
+- extendedWaitUntil:
+    visible:
+      id: sheet-chip
+      text: ".*8 1/2 × 11 in.*Letter.*"
+    timeout: 15000

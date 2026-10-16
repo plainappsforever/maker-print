@@ -1,0 +1,39 @@
+appId: ${APP_ID}
+name: Measure - iOS Print screen of seed SET printed through the exact route to the virtual printer (P6)
+# Needs scripts/vprinter.sh start + media. Prints ONLY to "MakerPrint Test" — never to a real printer on the network.
+---
+- runFlow:
+    file: ../subflows/seed.yaml
+    env:
+      SET: ${SET}
+- tapOn:
+    id: project-0
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- tapOn:
+    id: editor-print
+- extendedWaitUntil:
+    visible:
+      id: page-1-raster
+    timeout: 30000
+- tapOn:
+    id: print-button
+- extendedWaitUntil:
+    visible: "Printer"
+    timeout: 30000
+- tapOn: "Printer"
+- extendedWaitUntil:
+    visible: "MakerPrint Test"
+    timeout: 30000
+- tapOn: "MakerPrint Test"
+- waitForAnimationToEnd
+- assertVisible: "MakerPrint Test"
+- assertNotVisible: "Brother.*"
+- tapOn: "(?i)print"
+- extendedWaitUntil:
+    visible:
+      id: print-outcome-0
+      text: "Sent through the exact print route to MakerPrint Test, paper 210 × 297 mm."
+    timeout: 90000

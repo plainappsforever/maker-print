@@ -1,0 +1,27 @@
+appId: ${APP_ID}
+name: Measure - Android step 2 (P6) for "Save as PDF" - the PDF printer is the destination, saved to Downloads as FILE; waits for OUTCOME
+---
+- extendedWaitUntil:
+    visible:
+      id: com.android.printspooler:id/print_button
+    timeout: 60000
+- assertVisible:
+    id: com.android.printspooler:id/title
+    text: "Save as PDF"
+- assertNotVisible: "Brother.*"
+- tapOn:
+    id: com.android.printspooler:id/print_button
+- extendedWaitUntil:
+    visible: "(?i)save"
+    timeout: 30000
+- tapOn:
+    id: android:id/title
+    optional: true
+- eraseText: 80
+- inputText: ${FILE}
+- tapOn: "(?i)save"
+- extendedWaitUntil:
+    visible:
+      id: ${OUTCOME}
+      text: ${TEXT}
+    timeout: 120000

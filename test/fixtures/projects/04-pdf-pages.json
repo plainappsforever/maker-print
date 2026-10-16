@@ -1,0 +1,159 @@
+{
+ "name": "04-pdf-pages",
+ "about": "Embedded PDF pages at 100 %: plain page, /UserUnit 2, /Rotate 90, CropBox (content outside the crop must not print).",
+ "sheets": [
+  {
+   "id": 1,
+   "widthMm": 210,
+   "heightMm": 297
+  }
+ ],
+ "assets": [
+  {
+   "id": 1,
+   "kind": "pdf",
+   "file": "pdf/red-100x60.pdf"
+  },
+  {
+   "id": 2,
+   "kind": "pdf",
+   "file": "pdf/userunit2.pdf"
+  },
+  {
+   "id": 3,
+   "kind": "pdf",
+   "file": "pdf/rotate90.pdf"
+  },
+  {
+   "id": 4,
+   "kind": "pdf",
+   "file": "pdf/cropbox.pdf"
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "sheetId": 1,
+   "kind": "pdf_page",
+   "x": 15,
+   "y": 15,
+   "w": 100,
+   "h": 60,
+   "assetId": 1
+  },
+  {
+   "id": 2,
+   "sheetId": 1,
+   "kind": "pdf_page",
+   "x": 15,
+   "y": 85,
+   "w": 100,
+   "h": 60,
+   "assetId": 2
+  },
+  {
+   "id": 3,
+   "sheetId": 1,
+   "kind": "pdf_page",
+   "x": 15,
+   "y": 155,
+   "w": 100,
+   "h": 60,
+   "assetId": 3
+  },
+  {
+   "id": 4,
+   "sheetId": 1,
+   "kind": "pdf_page",
+   "x": 130,
+   "y": 15,
+   "w": 50,
+   "h": 50,
+   "assetId": 4
+  }
+ ],
+ "output": {
+  "paperKey": "a4"
+ },
+ "expect": {
+  "pageCount": 1,
+  "pageSizeMm": [
+   210,
+   297
+  ],
+  "features": [
+   {
+    "id": "plain page",
+    "page": 0,
+    "colour": "red",
+    "rect": [
+     23.5,
+     23.5,
+     33.0,
+     23.0
+    ],
+    "expect": {
+     "l": 25,
+     "t": 25,
+     "r": 55,
+     "b": 45,
+     "area": 600.0
+    }
+   },
+   {
+    "id": "UserUnit 2",
+    "page": 0,
+    "colour": "blue",
+    "rect": [
+     23.5,
+     93.5,
+     23.0,
+     23.0
+    ],
+    "expect": {
+     "l": 25,
+     "t": 95,
+     "r": 45,
+     "b": 115,
+     "area": 400.0
+    }
+   },
+   {
+    "id": "Rotate 90",
+    "page": 0,
+    "colour": "green",
+    "rect": [
+     98.5,
+     163.5,
+     13.0,
+     23.0
+    ],
+    "expect": {
+     "l": 100,
+     "t": 165,
+     "r": 110,
+     "b": 185,
+     "area": 200.0
+    }
+   },
+   {
+    "id": "CropBox",
+    "page": 0,
+    "colour": "magenta",
+    "rect": [
+     133.5,
+     48.5,
+     23.0,
+     13.0
+    ],
+    "expect": {
+     "l": 135,
+     "t": 50,
+     "r": 155,
+     "b": 60,
+     "area": 200.0
+    }
+   }
+  ]
+ }
+}

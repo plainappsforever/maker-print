@@ -1,0 +1,171 @@
+appId: ${APP_ID}
+name: New blank - Letter landscape sheet, shapes, drag on the canvas, align, layers, duplicate/delete, second sheet, autosave across a restart, rename/duplicate/delete project
+tags:
+  - p5
+---
+- runFlow:
+    file: subflows/seed.yaml
+    env:
+      SET: empty
+- assertVisible:
+    id: open-calibrate
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-blank
+- tapOn:
+    id: blank-paper-letter
+- tapOn:
+    id: blank-landscape
+- tapOn:
+    id: blank-create
+- extendedWaitUntil:
+    visible:
+      id: sheet-chip
+      text: ".*279.4 × 215.9 mm · 1 page Letter, 1:1.*"
+    timeout: 15000
+# a rectangle (centred: x = (279.4 − 50) / 2)
+- tapOn:
+    id: bar-add
+- tapOn:
+    id: add-rect
+- assertVisible:
+    id: field-x
+    text: "114.7 mm"
+# make it big so the drag starts well inside it, far from the handles
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-w
+      TEXT: "150"
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-h
+      TEXT: "100"
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-x
+      TEXT: "64.7"
+# drag it on the canvas (inspector closed so the canvas is large)
+- tapOn:
+    id: bar-edit
+- waitForAnimationToEnd
+- swipe:
+    start: 50%, 60%
+    end: 62%, 60%
+    duration: 900
+- tapOn:
+    id: bar-edit
+- assertNotVisible:
+    id: field-x
+    text: "64.7 mm"
+# align it back to the centre of the printable area
+- tapOn:
+    id: bar-align
+- tapOn:
+    id: align-centre
+- tapOn:
+    id: bar-edit
+- assertVisible:
+    id: field-x
+    text: "64.7 mm"
+# rotate 90° with the button: the box turns about its centre
+- tapOn:
+    id: insp-tab-turn
+- tapOn:
+    id: rotate-right
+- assertVisible:
+    id: field-rotation
+    text: "90"
+# an ellipse on top, duplicated, then the copy deleted
+- tapOn:
+    id: bar-add
+- tapOn:
+    id: add-ellipse
+- tapOn:
+    id: insp-tab-more
+- tapOn:
+    id: duplicate
+- tapOn:
+    id: bar-layers
+- assertVisible:
+    id: layer-2
+- tapOn:
+    id: layer-0
+- tapOn:
+    id: bar-edit
+- tapOn:
+    id: insp-tab-more
+- tapOn:
+    id: delete
+- tapOn:
+    id: bar-layers
+- assertNotVisible:
+    id: layer-2
+# layers: hide the top one, move the rectangle up
+- tapOn:
+    id: layer-hide-0
+- assertVisible:
+    id: layer-hide-0
+    text: "Show"
+- tapOn:
+    id: layer-up-1
+# a second sheet
+- tapOn:
+    id: bar-sheet
+- tapOn:
+    id: sheet-add
+- assertVisible:
+    id: sheet-chip
+    text: "Sheet 2 of 2 · .*"
+# autosave: restart the app, everything is still there
+- runFlow: subflows/launch.yaml
+- assertVisible:
+    id: project-0
+    text: "Letter sheet.*279.4 × 215.9 mm · 2 sheets.*"
+- tapOn:
+    id: project-0
+- assertVisible:
+    id: sheet-chip
+    text: ".*279.4 × 215.9 mm.*"
+- tapOn:
+    id: bar-layers
+- assertVisible:
+    id: layer-0
+    text: "Rectangle"
+- assertVisible:
+    id: layer-hide-1
+    text: "Show"
+- runFlow: subflows/launch.yaml
+# rename, duplicate, delete
+- tapOn:
+    id: project-more-0
+- tapOn:
+    id: action-rename
+- eraseText: 40
+- inputText: "Workshop sign"
+- pressKey: Enter
+- assertVisible:
+    id: project-0
+    text: "Workshop sign.*"
+- tapOn:
+    id: project-more-0
+- tapOn:
+    id: action-duplicate
+- assertVisible:
+    id: project-0
+    text: "Workshop sign \\(copy\\).*"
+- tapOn:
+    id: project-more-0
+- tapOn:
+    id: action-delete
+- tapOn:
+    text: "Delete"
+    index: 0
+- assertNotVisible:
+    id: project-1
+- assertVisible:
+    id: project-0
+    text: "Workshop sign,.*"

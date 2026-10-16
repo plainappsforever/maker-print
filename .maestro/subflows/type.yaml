@@ -1,0 +1,8 @@
+appId: ${APP_ID}
+# Replaces the text of field ID with TEXT and closes the keyboard (Enter = done).
+---
+- tapOn:
+    id: ${ID}
+- eraseText: 30
+- inputText: ${TEXT}
+- pressKey: Enter

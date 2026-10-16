@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["MakerPrintNativeModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.makerprintnative.MakerPrintNativeModule"]
+  }
+}

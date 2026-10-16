@@ -1,0 +1,196 @@
+appId: ${APP_ID}
+name: Release - Calibrate - U3 printer Home inkjet, A4, measured 149.0 and 199.5 → slightly off → saved; next Print screen shows ×1.0067 / ×1.0025; refusal, bank card, profile list
+tags:
+  - release
+---
+- runFlow:
+    file: ../subflows/release-start.yaml
+    env:
+      SET: empty
+# banner → Calibrate; no printing here (regression flows never print — the virtual-printer runs are in .maestro/measure/)
+- tapOn:
+    id: open-calibrate
+- assertVisible:
+    id: calibrate-screen
+- tapOn:
+    id: cal-new-profile
+- inputText: "Home inkjet"
+- pressKey: Enter
+- assertVisible:
+    id: cal-profile-margins
+    text: "Printer margins: not known yet.*"
+- tapOn:
+    id: paper-a4
+- assertVisible:
+    id: print-calibration
+# a typo by a factor of ten is refused with the reason, and cannot be saved
+- scrollUntilVisible:
+    element:
+      id: cal-a
+    centerElement: true
+- runFlow:
+    file: ../subflows/type.yaml
+    env:
+      ID: cal-a
+      TEXT: "15"
+- runFlow:
+    file: ../subflows/type.yaml
+    env:
+      ID: cal-b
+      TEXT: "20"
+- scrollUntilVisible:
+    element:
+      id: cal-save
+    centerElement: true
+- assertVisible:
+    id: cal-verdict-0
+    text: "These numbers are more than 15 % off.*150 mm and 200 mm.*"
+- assertVisible:
+    id: cal-save
+    enabled: false
+# the coarse bank-card check
+- tapOn:
+    id: cal-card-smaller
+- assertVisible:
+    id: cal-card-result
+    text: "Your printer prints too small.*"
+# U3: 149.0 and 199.5
+- scrollUntilVisible:
+    element:
+      id: cal-a
+    direction: UP
+    centerElement: true
+- runFlow:
+    file: ../subflows/type.yaml
+    env:
+      ID: cal-a
+      TEXT: "149.0"
+- runFlow:
+    file: ../subflows/type.yaml
+    env:
+      ID: cal-b
+      TEXT: "199.5"
+- scrollUntilVisible:
+    element:
+      id: cal-save
+    centerElement: true
+- assertVisible:
+    id: cal-verdict-0
+    text: "Slightly off: A prints at 99.3 %, B at 99.8 %.*"
+- assertVisible:
+    id: cal-verdict-1
+    text: "Correction ×1.0067 / ×1.0025.*"
+- tapOn:
+    id: cal-save
+- scrollUntilVisible:
+    element:
+      id: print-calibration-after
+    centerElement: true
+- assertVisible:
+    id: cal-saved
+    text: "Saved for Home inkjet, A4, single page: ×1.0067 / ×1.0025.*"
+# Android: the 2-page check measured ×0.9394 (the Default Print Service's multi-page fit, P4) → saved as the multi-page
+# correction, explained as Android's fit (not a dialog setting)
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - scrollUntilVisible:
+          element:
+            id: cal-kind-multi
+          direction: UP
+          centerElement: true
+      - tapOn:
+          id: cal-kind-multi
+      - runFlow:
+          file: ../subflows/type.yaml
+          env:
+            ID: cal-a
+            TEXT: "140.9"
+      - runFlow:
+          file: ../subflows/type.yaml
+          env:
+            ID: cal-b
+            TEXT: "187.9"
+      - scrollUntilVisible:
+          element:
+            id: cal-save
+          centerElement: true
+      - assertVisible:
+          id: cal-verdict-1
+          text: "This is Android shrinking a multi-page job.*"
+      - tapOn:
+          id: cal-save
+      - scrollUntilVisible:
+          element:
+            id: cal-saved
+          centerElement: true
+      - assertVisible:
+          id: cal-saved
+          text: "Saved for Home inkjet, A4, multi-page: ×1.0646 / ×1.0644.*"
+# the next print on A4 shows and applies the correction (switchable per print)
+- runFlow: ../subflows/launch.yaml
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-blank
+- tapOn:
+    id: blank-paper-a4
+- tapOn:
+    id: blank-create
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- tapOn:
+    id: editor-print
+# the correction belongs to A4 only: on Letter (the default paper in US regions) nothing is applied
+- scrollUntilVisible:
+    element:
+      id: print-paper-letter
+    centerElement: true
+- tapOn:
+    id: print-paper-letter
+- assertVisible:
+    id: print-profile-status
+    text: "Not calibrated for Letter \\(single page\\)\\."
+- assertNotVisible:
+    id: toggle-correction
+- tapOn:
+    id: print-paper-a4
+- scrollUntilVisible:
+    element:
+      id: plan-summary
+    direction: UP
+- extendedWaitUntil:
+    visible:
+      id: warning-correctionApplied
+      text: ".*Correction ×1.0067 / ×1.0025 for A4, single page.*"
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: toggle-correction
+    centerElement: true
+- assertVisible:
+    id: print-profile-status
+    text: "Calibrated .* ✓ ×1.0067 / ×1.0025 \\(A4, single page\\)"
+- tapOn:
+    id: toggle-correction
+- scrollUntilVisible:
+    element:
+      id: plan-summary
+    direction: UP
+- assertNotVisible:
+    id: warning-correctionApplied
+# the printer profile lists the saved correction
+- runFlow: ../subflows/launch.yaml
+- tapOn:
+    id: open-settings
+- tapOn:
+    id: open-profiles
+- assertVisible: "Home inkjet.*"
+- assertVisible: ".*corrections: [12].*"
+- tapOn: "Home inkjet.*"
+- assertVisible:
+    id: calibration-a4-single
+- assertVisible: "A4, single page: ×1.0067 / ×1.0025 — measured A 149 of 150 mm, B 199.5 of 200 mm.*"

@@ -1,0 +1,30 @@
+Drucke, was du entworfen hast, in der Größe, in der du es entworfen hast: Vorlagen, Schablonen, Schnitt- und Bastelmuster, Lineale, Etiketten, Abziehbilder. Alles bleibt auf deinem Handy. Kein Konto, keine Werbung, kein Abo, und die Android-App hat keine Internet-Berechtigung.
+
+Seiten in echter Größe
+Maker Print schreibt jede Seite seiner Druckdatei in exakter Papiergröße und bittet das Drucksystem, nicht zu skalieren. PDF-Seiten behalten ihre Entwurfsgröße (gelesen werden Seitenrahmen, Drehung und Einheit). SVG-Dateien bekommen ihre Größe aus ihren Einheiten; hat eine Datei keine, fragt die App einmal, mit welchem Programm sie entstanden ist (96, 72 oder 90 Pixel pro Zoll) und zeigt die Größe, bevor du sie platzierst. Bei Fotos siehst du die Auflösung live, während du eine Größe tippst.
+
+Der Beweis auf dem Papier
+Jeder Ausdruck trägt einen 100-mm-Prüfbalken. Miss ihn mit einem Lineal. Drucker, Treiber und Druckdialoge können die Größe trotzdem ändern, und ein Bildschirm zeigt keine echte Größe: Nur Papier beweist sie. Stimmt der Balken nicht, druckt der Kalibrier-Assistent ein Testblatt, du tippst ein, was du gemessen hast, und Maker Print speichert eine Korrektur für diesen Drucker und dieses Papier und wendet sie bei späteren Drucken an. Getestet wurde mit virtuellen Druckern auf Simulator und Emulator; dein eigener Drucker hat das letzte Wort, deshalb gibt es den Balken.
+
+Große Drucke auf kleinem Papier
+Bögen bis 3 Meter werden in Seiten mit Überlappung, Passermarken, die auf Nachbarseiten übereinanderliegen, Seitenbeschriftung mit Pfeilen und einem Montageplan zerlegt. Leere Seiten werden übersprungen, einzelne Seiten kannst du weglassen. Querformatseiten werden auf Hochformatpapier gedreht gedruckt.
+
+Vorlagen und Kopien
+Lineale bis 3 Meter Länge, Millimeterpapier, Punktraster, Linienpapier, Kreisschablonen und Testquadrate. Füge Text, Rechtecke, Ellipsen und Linien hinzu. Wiederhole einen Entwurf in Zeilen und Spalten, fülle einen Bogen, setze Schnittmarken, spiegle ihn für Transferpapier. Lege den Maßstab eines Fotos über eine Länge fest, die du kennst.
+
+Einheiten
+Millimeter, Zentimeter und Zoll, auch mit Brüchen wie 3 1/16". Jede Einheit lässt sich in jedes Größenfeld tippen. Deutsch und Englisch.
+
+Drucken unter Android
+Mehrere Seiten in einem Auftrag können auf Druckern ohne PDF-Unterstützung verkleinert werden. Maker Print druckt Seiten deshalb standardmäßig einzeln (ein Tipp pro Seite). Nach dem Ausmessen deines Druckers kannst du das ausschalten.
+
+Export
+Exportiere ein Vektor-PDF in exakter Papiergröße, um es im Copyshop oder am Computer zu drucken (dort „Tatsächliche Größe“ wählen).
+
+Gut zu wissen
+- SVG-Text, eingebettete Bilder, Muster und Filter werden nicht oder anders gedruckt; die App listet sie vor dem Druck auf. Für ein exaktes Ergebnis importiere ein PDF.
+- PDF-Kommentare und Formularfelder werden nicht gedruckt; das PDF vorher glätten.
+- Maker Print lässt am Papierrand mindestens 3 mm frei.
+
+In dieser Version nicht enthalten
+DXF-Import, PNG-Export, Etikettenbögen-Kataloge, Barcodes, fortlaufende Nummern, eigene Schriften.

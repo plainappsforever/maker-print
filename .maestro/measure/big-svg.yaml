@@ -1,0 +1,26 @@
+appId: ${APP_ID}
+name: Measure - 45 MB SVG through the document picker; busy screen shown, refused as too complex (time + memory sampled by the caller)
+---
+- runFlow:
+    file: ../subflows/seed.yaml
+    env:
+      SET: empty
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-file
+- runFlow:
+    file: ../subflows/pick-file.yaml
+    env:
+      FILE: drawing-45mb
+# the busy screen may already be gone when Maestro looks (refusal ≈ 1–2 s): checked, not required
+- assertVisible:
+    id: busy
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: import-error
+      text: "This drawing is too complex to print.*"
+    timeout: 180000
+- assertNotVisible:
+    id: project-0

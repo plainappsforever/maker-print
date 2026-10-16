@@ -1,0 +1,33 @@
+appId: ${APP_ID}
+name: Release print iOS - Calibrate screen prints the A4 sheet through the exact route to the virtual printer (never a real one)
+# Needs scripts/vprinter.sh start + media (A4 loaded). Prints ONLY to "MakerPrint Test".
+---
+- runFlow:
+    file: ../subflows/release-start.yaml
+- tapOn:
+    id: open-calibrate
+- tapOn:
+    id: cal-new-profile
+- inputText: "Test printer"
+- pressKey: Enter
+- tapOn:
+    id: paper-a4
+- tapOn:
+    id: print-calibration
+- extendedWaitUntil:
+    visible: "Printer"
+    timeout: 30000
+- tapOn: "Printer"
+- extendedWaitUntil:
+    visible: "MakerPrint Test"
+    timeout: 30000
+- tapOn: "MakerPrint Test"
+- waitForAnimationToEnd
+- assertVisible: "MakerPrint Test"
+- assertNotVisible: "Brother.*"
+- tapOn: "Print"
+- extendedWaitUntil:
+    visible:
+      id: calibration-outcome-0
+      text: "Sent through the exact print route to MakerPrint Test, paper 210 × 297 mm."
+    timeout: 60000

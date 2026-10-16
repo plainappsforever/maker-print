@@ -1,0 +1,103 @@
+appId: ${APP_ID}
+name: Repeat labels - U8 blank A4, rectangle 50 × 30 mm and a text, gaps 2 mm, Fill sheet → 24 each (W6), trim marks
+tags:
+  - p5
+---
+- runFlow:
+    file: subflows/seed.yaml
+    env:
+      SET: empty
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-blank-default
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+# rectangle 50 × 30 mm
+- tapOn:
+    id: bar-add
+- tapOn:
+    id: add-rect
+- assertVisible:
+    id: inspector-title
+    text: "Rectangle"
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-w
+      TEXT: "50"
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-h
+      TEXT: "30"
+- tapOn:
+    id: insp-tab-repeat
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-gap-x
+      TEXT: "2"
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-gap-y
+      TEXT: "2"
+- tapOn:
+    id: fill-sheet
+- assertVisible:
+    id: copies-line
+    text: "24 copies \\(3 × 8\\)"
+- tapOn:
+    id: toggle-trim
+# a text in the same 50 × 30 box, filled the same way
+- tapOn:
+    id: bar-add
+- tapOn:
+    id: add-text
+- assertVisible:
+    id: inspector-title
+    text: "Text"
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-w
+      TEXT: "50"
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-h
+      TEXT: "30"
+- tapOn:
+    id: insp-tab-repeat
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-gap-x
+      TEXT: "2"
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-gap-y
+      TEXT: "2"
+- tapOn:
+    id: fill-sheet
+- assertVisible:
+    id: copies-line
+    text: "24 copies \\(3 × 8\\)"
+- tapOn:
+    id: insp-tab-more
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-text
+      TEXT: "Plum jam 2026"
+- tapOn:
+    id: editor-print
+- assertVisible:
+    id: plan-summary
+    text: "1 page · A4, 1:1"
+- assertVisible:
+    id: page-1

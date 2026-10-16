@@ -1,0 +1,163 @@
+{
+ "i01-exif-orient6-II.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 6,
+  "density": null,
+  "note": ""
+ },
+ "i02-exif-orient8-MM.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 8,
+  "density": null,
+  "note": ""
+ },
+ "i03-exif-orient3.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 3,
+  "density": null,
+  "note": ""
+ },
+ "i04-exif-orient5.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 5,
+  "density": null,
+  "note": ""
+ },
+ "i05-jfif300-exif72.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 1,
+  "density": "disagree",
+  "note": "JFIF says 300 dpi, EXIF says 72 dpi"
+ },
+ "i06-jfif72-exif300cm.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 1,
+  "density": [
+   299.9994,
+   299.9994
+  ],
+  "note": "EXIF 118.11 px/cm = 299.9994 dpi"
+ },
+ "i07-app13-only-300.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 1,
+  "density": [
+   300,
+   300
+  ],
+  "note": "only Photoshop ResolutionInfo carries the density"
+ },
+ "i08-ifd1-orientation.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 1,
+  "density": null,
+  "note": "IFD1 (thumbnail) orientation 6 must be ignored"
+ },
+ "i09-aniso-dpi.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 1,
+  "density": [
+   300,
+   150
+  ],
+  "note": "non-square pixels"
+ },
+ "i10-orient6-dpi300-150.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 6,
+  "density": [
+   150,
+   300
+  ],
+  "note": "densities follow the displayed axes after rotation"
+ },
+ "i11-exif-before-jfif.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 6,
+  "density": [
+   200,
+   200
+  ],
+  "note": "APP1 before APP0 (some cameras)"
+ },
+ "i20-png-phys-dpm.png": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 1,
+  "density": [
+   299.9994,
+   299.9994
+  ],
+  "note": "11811 px/m"
+ },
+ "i21-png-phys-unit0.png": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 1,
+  "density": null,
+  "note": "aspect only"
+ },
+ "i22-png-16bit.png": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 1,
+  "density": null
+ },
+ "i23-png-palette-trns.png": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 1,
+  "density": null,
+  "note": "white entry fully transparent"
+ },
+ "i30-cmyk.jpg": {
+  "raw": [
+   300,
+   200
+  ],
+  "orientation": 1,
+  "density": null,
+  "note": "CMYK JPEG (Adobe APP14) - colours must not invert"
+ }
+}

@@ -1,0 +1,22 @@
+appId: ${APP_ID}
+name: Measure - Android print step 2 - PRINTER (the virtual printer) is the destination, then Print (scripts/vprinter/print-android.sh)
+# A REAL printer is visible on this network: Print is tapped only after asserting that MakerPrint Test is selected.
+---
+- extendedWaitUntil:
+    visible:
+      id: com.android.printspooler:id/print_button
+    timeout: 30000
+- assertVisible: ${PRINTER}
+- assertNotVisible: "Brother.*"
+- assertNotVisible: "Save as PDF"
+- tapOn:
+    id: com.android.printspooler:id/print_button
+# first job through Default Print Service on a fresh emulator: "Use Default Print Service? … OK"
+- tapOn:
+    text: "OK"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: print-outcome
+      text: "PRINT ${NAME}.*"
+    timeout: 90000

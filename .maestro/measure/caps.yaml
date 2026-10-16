@@ -1,0 +1,18 @@
+appId: ${APP_ID}
+name: Measure - engine limits on the device's JS engine (writes caps.json; not part of the regression suite)
+---
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible:
+      id: projects-screen
+    timeout: 90000
+- runFlow:
+    file: ../subflows/open-link.yaml
+    env:
+      LINK: makerprint-dev://debug?run=caps
+- extendedWaitUntil:
+    visible:
+      id: caps-result
+      text: "CAPS DONE.*"
+    timeout: 1200000

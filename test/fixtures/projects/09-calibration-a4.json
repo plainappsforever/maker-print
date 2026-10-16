@@ -1,0 +1,63 @@
+{
+ "name": "09-calibration-a4",
+ "about": "Calibration sheet a4: bar A = 150 mm, bar B = 200 mm between the end ticks (A2, D18).",
+ "kind": "calibration",
+ "calibration": {
+  "paperKey": "a4",
+  "pages": 1
+ },
+ "output": {
+  "paperKey": "a4"
+ },
+ "expect": {
+  "pageCount": 1,
+  "pageSizeMm": [
+   210,
+   297
+  ],
+  "features": [
+   {
+    "id": "bar A ends",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     20,
+     16.85,
+     170,
+     3.0
+    ],
+    "expect": {
+     "positions": [
+      30,
+      180
+     ],
+     "span": 150
+    },
+    "mode": "ticks",
+    "axis": "x",
+    "minTickMm": 2
+   },
+   {
+    "id": "bar B ends",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     14.85,
+     40.5,
+     3.0,
+     216
+    ],
+    "expect": {
+     "positions": [
+      48.5,
+      248.5
+     ],
+     "span": 200
+    },
+    "mode": "ticks",
+    "axis": "y",
+    "minTickMm": 2
+   }
+  ]
+ }
+}

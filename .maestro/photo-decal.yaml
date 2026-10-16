@@ -1,0 +1,81 @@
+appId: ${APP_ID}
+name: Photo decal - U2 blank A4, photo from the photo picker, W 40 → H follows, PPI Sharp, mirror, repeat 3 × 4 gap 3 trim (A9 taps)
+tags:
+  - p5
+---
+- runFlow:
+    file: subflows/seed.yaml
+    env:
+      SET: empty
+# A9 tap count: taps marked "# tap n"; field entries are typing (focus + text)
+- tapOn:
+    id: new-project # tap 1
+- tapOn:
+    id: new-blank-default # tap 2
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- tapOn:
+    id: bar-add # tap 3
+- tapOn:
+    id: add-photo # tap 4
+- runFlow:
+    file: subflows/pick-photo.yaml # tap 5
+    env:
+      PHOTO_DATE: January 01
+      PHOTO_DAY: Jan 1
+- extendedWaitUntil:
+    visible:
+      id: inspector-title
+      text: ".+\\.jpe?g" # Android names picked photos by media id ("32.jpg")
+    timeout: 30000
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-w
+      TEXT: "40"
+- assertVisible:
+    id: field-h
+    text: "30 mm"
+- assertVisible:
+    id: ppi-line
+    text: "1524 PPI · Sharp"
+- tapOn:
+    id: insp-tab-turn # tap 6
+- tapOn:
+    id: toggle-mirror-h # tap 7
+- tapOn:
+    id: insp-tab-repeat # tap 8
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-cols
+      TEXT: "3"
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-rows
+      TEXT: "4"
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-gap-x
+      TEXT: "3"
+- runFlow:
+    file: subflows/type.yaml
+    env:
+      ID: field-gap-y
+      TEXT: "3"
+- tapOn:
+    id: toggle-trim # tap 9
+- assertVisible:
+    id: copies-line
+    text: "12 copies \\(3 × 4\\)"
+- tapOn:
+    id: editor-print # tap 10
+- assertVisible:
+    id: plan-summary
+    text: "1 page · A4, 1:1"
+- assertNotVisible:
+    id: warning-lowPpi

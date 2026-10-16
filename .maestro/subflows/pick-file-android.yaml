@@ -1,0 +1,7 @@
+appId: ${APP_ID}
+# Android DocumentsUI opens on Recent, where scripts/e2e-files.sh's Download files are listed.
+---
+- extendedWaitUntil:
+    visible: "${FILE}\\.(pdf|svg|jpg)"
+    timeout: 15000
+- tapOn: "${FILE}\\.(pdf|svg|jpg)"

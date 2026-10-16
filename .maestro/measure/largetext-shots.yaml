@@ -1,0 +1,38 @@
+appId: ${APP_ID}
+name: Measure - large-text pass (P7), key screens with the system text size raised, screenshots for inspection
+---
+- runFlow:
+    file: ../subflows/seed.yaml
+    env:
+      SET: w4cal
+- takeScreenshot: lt-1-projects
+- tapOn:
+    id: project-0
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 15000
+- takeScreenshot: lt-2-editor
+- tapOn:
+    id: editor-print
+- takeScreenshot: lt-3-print
+- scrollUntilVisible:
+    element:
+      id: page-1-raster
+    timeout: 60000
+- takeScreenshot: lt-3b-print-previews
+- scrollUntilVisible:
+    element:
+      id: print-button
+    centerElement: true
+- takeScreenshot: lt-4-print-bottom
+- runFlow: ../subflows/launch.yaml
+- tapOn:
+    id: open-calibrate
+- assertVisible:
+    id: calibrate-screen
+- takeScreenshot: lt-5-calibrate
+- runFlow: ../subflows/launch.yaml
+- tapOn:
+    id: open-settings
+- takeScreenshot: lt-6-settings

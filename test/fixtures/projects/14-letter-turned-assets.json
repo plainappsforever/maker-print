@@ -1,0 +1,232 @@
+{
+ "name": "14-letter-turned-assets",
+ "about": "Letter, 500×380 sheet → landscape frame 2×2 + map turned onto portrait Letter (D53): image across the A1|A2 seam, PDF page, SVG, registration marks and the check bar on the turned map all measure exactly.",
+ "sheets": [
+  {
+   "id": 1,
+   "widthMm": 500,
+   "heightMm": 380
+  }
+ ],
+ "assets": [
+  {
+   "id": 1,
+   "kind": "image",
+   "file": "images/red-square-300dpi.png"
+  },
+  {
+   "id": 2,
+   "kind": "pdf",
+   "file": "pdf/red-100x60.pdf"
+  },
+  {
+   "id": 3,
+   "kind": "svg",
+   "file": "svg/inkscape-mm.svg"
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "sheetId": 1,
+   "kind": "image",
+   "x": 230,
+   "y": 70,
+   "w": 60,
+   "h": 60,
+   "assetId": 1
+  },
+  {
+   "id": 2,
+   "sheetId": 1,
+   "kind": "pdf_page",
+   "x": 20,
+   "y": 120,
+   "w": 100,
+   "h": 60,
+   "assetId": 2
+  },
+  {
+   "id": 3,
+   "sheetId": 1,
+   "kind": "svg",
+   "x": 300,
+   "y": 250,
+   "w": 100,
+   "h": 50,
+   "assetId": 3
+  }
+ ],
+ "output": {
+  "paperKey": "letter",
+  "skipBlank": false,
+  "checkBar": true
+ },
+ "expect": {
+  "pageCount": 5,
+  "pageSizeMm": [
+   215.9,
+   279.4
+  ],
+  "paperMm": [
+   215.9,
+   279.4
+  ],
+  "allow": [
+   {
+    "page": 0,
+    "colour": "red"
+   },
+   {
+    "page": 0,
+    "colour": "blue"
+   }
+  ],
+  "features": [
+   {
+    "id": "A1 image red (clipped at content edge)",
+    "page": 1,
+    "colour": "red",
+    "rect": [
+     88.35,
+     3.35,
+     36.0,
+     27.7
+    ],
+    "expect": {
+     "cx": 106.35,
+     "area": 651.0
+    },
+    "areaTol": 0.02
+   },
+   {
+    "id": "A2 image red",
+    "page": 2,
+    "colour": "red",
+    "rect": [
+     88.35,
+     251.75,
+     36.0,
+     24.3
+    ],
+    "expect": {
+     "cx": 106.35,
+     "area": 549.0
+    },
+    "areaTol": 0.02
+   },
+   {
+    "id": "A1 PDF page red",
+    "page": 1,
+    "colour": "red",
+    "rect": [
+     134.85,
+     211.55,
+     23.0,
+     33.0
+    ],
+    "expect": {
+     "t": 213.05,
+     "l": 136.35,
+     "b": 243.05,
+     "r": 156.35,
+     "area": 600.0
+    }
+   },
+   {
+    "id": "B2 SVG rect",
+    "page": 4,
+    "colour": "red",
+    "rect": [
+     71.65,
+     188.25,
+     23.0,
+     33.0
+    ],
+    "expect": {
+     "t": 189.75,
+     "l": 73.15,
+     "b": 219.75,
+     "r": 93.15,
+     "area": 600.0
+    }
+   },
+   {
+    "id": "B2 SVG circle",
+    "page": 4,
+    "colour": "blue",
+    "rect": [
+     71.65,
+     143.25,
+     33.0,
+     33.0
+    ],
+    "expect": {
+     "cy": 159.75,
+     "cx": 88.15,
+     "area": 706.858347
+    }
+   },
+   {
+    "id": "A1 mark → A2",
+    "page": 1,
+    "colour": "ink",
+    "rect": [
+     52.35,
+     6.55,
+     9.6,
+     9.6
+    ],
+    "expect": {
+     "cy": 11.35,
+     "cx": 57.15
+    }
+   },
+   {
+    "id": "A2 mark ← A1",
+    "page": 2,
+    "colour": "ink",
+    "rect": [
+     52.35,
+     263.65,
+     9.6,
+     8.95
+    ],
+    "expect": {
+     "cy": 268.05,
+     "cx": 57.15
+    }
+   },
+   {
+    "id": "check bar on the turned map",
+    "page": 0,
+    "colour": "ink",
+    "rect": [
+     199.0,
+     171.4,
+     11.0,
+     102.0
+    ],
+    "expect": {
+     "ticks": 11,
+     "span": 100.0,
+     "last": 272.55,
+     "first": 172.55,
+     "maxStepError": 0.05
+    },
+    "mode": "ticks",
+    "axis": "y",
+    "minTickMm": 1.8,
+    "step": 10
+   }
+  ],
+  "same": [
+   {
+    "a": "A1 mark → A2",
+    "b": "A2 mark ← A1",
+    "dx": 0,
+    "dy": 256.7
+   }
+  ]
+ }
+}

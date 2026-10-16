@@ -1,0 +1,55 @@
+appId: ${APP_ID}
+name: Measure - iOS Calibrate screen prints the A4 sheet through the exact route; margins learned on the profile
+# Needs scripts/vprinter.sh start + media (A4 loaded). Prints ONLY to "MakerPrint Test".
+---
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible:
+      id: projects-screen
+    timeout: 90000
+- runFlow:
+    file: ../subflows/open-link.yaml
+    env:
+      LINK: makerprint-dev://debug/seed?set=profile
+- extendedWaitUntil:
+    visible:
+      id: seed-done
+    timeout: 20000
+- launchApp:
+    stopApp: true
+- extendedWaitUntil:
+    visible:
+      id: projects-screen
+    timeout: 90000
+- tapOn:
+    id: open-calibrate
+- tapOn:
+    id: paper-a4
+- tapOn:
+    id: print-calibration
+- extendedWaitUntil:
+    visible: "Printer"
+    timeout: 30000
+- tapOn: "Printer"
+- extendedWaitUntil:
+    visible: "MakerPrint Test"
+    timeout: 30000
+- tapOn: "MakerPrint Test"
+- waitForAnimationToEnd
+- tapOn: "Print"
+- extendedWaitUntil:
+    visible:
+      id: calibration-outcome-0
+      text: "Sent through the exact print route to MakerPrint Test, paper 210 × 297 mm."
+    timeout: 60000
+- assertVisible:
+    id: calibration-outcome-1
+    text: "Printer margins learned: left .*"
+# the virtual printer reports 0 mm margins (D66): the 3 mm floor is named (D76)
+- assertVisible:
+    id: calibration-outcome-2
+    text: "This printer reports less than 3 mm margin.*"
+- assertVisible:
+    id: calibration-outcome-3
+    text: "Now measure: A must be 150 mm and B must be 200 mm.*"

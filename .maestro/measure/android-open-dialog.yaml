@@ -1,0 +1,51 @@
+appId: ${APP_ID}
+name: Measure - Android step 1 (P6) - open the print dialog from the app UI (MODE screen|cal|cal-multi, SET seed, ONE=toggle flips the one-by-one switch)
+# Needs scripts/vprinter.sh start. Step 2 (scripts/vprinter/print-android-ui.sh) picks the virtual printer by uiautomator
+# and asserts it before Print: a REAL printer is visible on this network.
+---
+- runFlow:
+    file: ../subflows/seed.yaml
+    env:
+      SET: ${SET}
+- runFlow:
+    when:
+      true: ${MODE == 'screen'}
+    commands:
+      - tapOn:
+          id: project-0
+      - extendedWaitUntil:
+          visible:
+            id: editor-screen
+          timeout: 15000
+      - tapOn:
+          id: editor-print
+      - extendedWaitUntil:
+          visible:
+            id: page-1-raster
+          timeout: 30000
+- runFlow:
+    when:
+      true: ${MODE == 'screen' && ONE == 'toggle'}
+    commands:
+      - tapOn:
+          id: toggle-one-by-one
+- runFlow:
+    when:
+      true: ${MODE == 'screen'}
+    commands:
+      - tapOn:
+          id: print-button
+- runFlow:
+    when:
+      true: ${MODE == 'cal' || MODE == 'cal-multi'}
+    commands:
+      - tapOn:
+          id: open-calibrate
+      - tapOn:
+          id: paper-a4
+      - tapOn:
+          id: "${MODE == 'cal' ? 'print-calibration' : 'print-calibration-multi'}"
+- extendedWaitUntil:
+    visible:
+      id: com.android.printspooler:id/destination_spinner
+    timeout: 30000

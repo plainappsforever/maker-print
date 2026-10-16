@@ -1,0 +1,42 @@
+appId: ${APP_ID}
+name: Release - PDF pattern - U1 A2 pattern PDF opened through the document picker, 100 %, 8 landscape A4 tiles + map (A9 taps)
+tags:
+  - release
+---
+- runFlow:
+    file: ../subflows/release-start.yaml
+    env:
+      SET: empty
+- tapOn:
+    id: new-project
+- tapOn:
+    id: new-file
+- runFlow:
+    file: ../subflows/pick-file.yaml
+    env:
+      FILE: pattern-a2
+# ---- taps after the file is picked (A9: U1 ≤ 6) ----
+- extendedWaitUntil:
+    visible:
+      id: editor-screen
+    timeout: 30000
+- extendedWaitUntil:
+    visible:
+      id: inspector-title
+      text: "pattern-a2.pdf"
+    timeout: 20000
+- assertVisible:
+    id: sheet-chip
+    text: ".*420 × 594 mm.*8 pages A4 landscape.*"
+- assertVisible:
+    id: scale-line
+    text: "Designed size \\(100 %\\)"
+- tapOn:
+    id: editor-print # tap 1
+- assertVisible:
+    id: plan-summary
+    text: "9 pages · 8 tiles A4 landscape · assembly map"
+- assertVisible:
+    id: page-1
+- assertVisible:
+    id: warning-pagesTurned
