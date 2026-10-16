@@ -579,7 +579,7 @@ export const en = {
   'about.backup.ios': 'Your projects are part of your iPhone’s own backup (iCloud or computer). Maker Print uploads nothing.',
   'about.backup.android': 'Your projects are not part of the phone’s backup: to keep a copy, export a PDF. Maker Print uploads nothing.',
   'about.privacyLink': 'Privacy policy online',
-  'about.privacyLinkNote': 'Opens taulon.org in your browser. Maker Print itself has no internet access.',
+  'about.privacyLinkNote': 'Opens the Plain Apps website in your browser. Maker Print itself has no internet access.',
   'nav.licences': 'Open-source licences',
   'licences.intro': '{n} open-source packages are part of Maker Print. Tap one to read its licence.',
   'licences.show': 'show licence',

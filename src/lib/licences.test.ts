@@ -14,6 +14,6 @@ describe('open-source licences', () => {
     }
   });
   it('the privacy page is the owner\'s https address', () => {
-    expect(PRIVACY_URL).toBe('https://taulon.org/apps/maker-print/privacy');
+    expect(PRIVACY_URL).toBe('https://plainapps.dfdsfdsfsdf.workers.dev/apps/maker-print/privacy');
   });
 });

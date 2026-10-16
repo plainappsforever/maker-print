@@ -581,7 +581,7 @@ export const de: Record<TranslationKey, string> = {
   'about.backup.ios': 'Deine Projekte sind Teil der eigenen Sicherung deines iPhones (iCloud oder Computer). Maker Print lädt nichts hoch.',
   'about.backup.android': 'Deine Projekte sind nicht Teil der Sicherung des Telefons: Exportiere ein PDF, um eine Kopie zu behalten. Maker Print lädt nichts hoch.',
   'about.privacyLink': 'Datenschutzerklärung online',
-  'about.privacyLinkNote': 'Öffnet taulon.org in deinem Browser. Maker Print selbst hat keinen Internetzugriff.',
+  'about.privacyLinkNote': 'Öffnet die Plain-Apps-Website in deinem Browser. Maker Print selbst hat keinen Internetzugriff.',
   'nav.licences': 'Open-Source-Lizenzen',
   'licences.intro': '{n} Open-Source-Pakete sind Teil von Maker Print. Tippe auf eines, um seine Lizenz zu lesen.',
   'licences.show': 'Lizenz zeigen',
