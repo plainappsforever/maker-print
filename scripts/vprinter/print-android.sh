@@ -8,7 +8,7 @@ cd "$(dirname "$0")/../.."
 source scripts/env.sh
 name=${1:?fixture}; route=${2:?route}; printer=${3:-MakerPrint Android}
 out="artifacts/maestro/android-measure-$name-$route-$(date +%H%M%S)"
-maestro --device "$ANDROID_SERIAL" test -e APP_ID=com.tim.makerprint.dev -e NAME="$name" -e ROUTE="$route" --test-output-dir "$out" .maestro/measure/print-android.yaml >/dev/null
+maestro --device "$ANDROID_SERIAL" test -e APP_ID=com.plainapps.makerprint.dev -e NAME="$name" -e ROUTE="$route" --test-output-dir "$out" .maestro/measure/print-android.yaml >/dev/null
 tap_text() { # $1 = exact text, $2 = "available": only a row that has the printer-info button (stale entries have none)
   adb -s "$ANDROID_SERIAL" shell uiautomator dump /sdcard/mp-ui.xml >/dev/null
   adb -s "$ANDROID_SERIAL" shell cat /sdcard/mp-ui.xml | node -e '
@@ -31,7 +31,7 @@ else
 fi
 sleep 2
 if [[ $printer == "Save as PDF" ]]; then
-  maestro --device "$ANDROID_SERIAL" test -e APP_ID=com.tim.makerprint.dev -e NAME="$name" --test-output-dir "$out" .maestro/measure/save-pdf-android.yaml
+  maestro --device "$ANDROID_SERIAL" test -e APP_ID=com.plainapps.makerprint.dev -e NAME="$name" --test-output-dir "$out" .maestro/measure/save-pdf-android.yaml
 else
-  maestro --device "$ANDROID_SERIAL" test -e APP_ID=com.tim.makerprint.dev -e NAME="$name" -e PRINTER="$printer" --test-output-dir "$out" .maestro/measure/print-android-2.yaml
+  maestro --device "$ANDROID_SERIAL" test -e APP_ID=com.plainapps.makerprint.dev -e NAME="$name" -e PRINTER="$printer" --test-output-dir "$out" .maestro/measure/print-android-2.yaml
 fi

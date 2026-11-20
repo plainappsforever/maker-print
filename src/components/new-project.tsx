@@ -1,8 +1,10 @@
 // "New" (SPEC §9.1): Blank (default paper, one tap) · Blank sheet of another paper · Big print (custom size, tiled) ·
 // Open file · Template (Ruler, Graph paper, Dot grid, Lined paper, Circle template, Test square).
 import { useState } from 'react';
-import { Modal, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
+import { Radius } from '@/constants/theme';
+import { Text, TextInput } from './text';
 import { defaultTemplateParams, TEMPLATE_KINDS, type TemplateKind, type TemplateParams } from '@/editor/templates';
 import { paperSize, type PaperKey } from '@/engine/paper';
 import { parseLength } from '@/engine/units';
@@ -145,10 +147,10 @@ const styles = StyleSheet.create({
   head: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   title: { fontSize: 22, fontWeight: '700', flexShrink: 1 },
   link: { fontSize: 16, fontWeight: '600' },
-  item: { padding: 14, borderRadius: 12, gap: 2 },
+  item: { padding: 14, borderRadius: Radius.control, gap: 2 },
   itemText: { fontSize: 17, fontWeight: '600' },
   detail: { fontSize: 13, lineHeight: 18 },
   row: { flexDirection: 'row', gap: 10, flexWrap: 'wrap' },
   field: { gap: 4 },
-  input: { minHeight: 40, borderRadius: 8, paddingHorizontal: 10, fontSize: 16 },
+  input: { minHeight: 40, borderRadius: Radius.control, paddingHorizontal: 10, fontSize: 16 },
 });

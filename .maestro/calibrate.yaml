@@ -173,7 +173,7 @@ tags:
     centerElement: true
 - assertVisible:
     id: print-profile-status
-    text: "Calibrated .* ✓ ×1.0067 / ×1.0025 \\(A4, single page\\)"
+    text: "Calibrated .*: ×1.0067 / ×1.0025 \\(A4, single page\\)"
 - tapOn:
     id: toggle-correction
 - scrollUntilVisible:

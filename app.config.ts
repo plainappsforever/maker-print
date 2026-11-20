@@ -1,36 +1,56 @@
 import type { ConfigContext, ExpoConfig } from 'expo/config';
 
+import brand from './src/constants/brand.json';
+
 // One codebase, three installable variants that can sit side by side on a device.
 // Select with APP_VARIANT (set by scripts/native.sh and eas.json).
+// Bundle ids follow the owner's rule of 2026-10-16: com.plainapps.<app>, never a personal name. Production is registered at Apple.
+const ID_PREFIX = 'com.plainapps';
 const VARIANTS = {
-  development: { name: 'Maker Print Dev', id: 'com.tim.makerprint.dev', scheme: 'makerprint-dev' },
-  preview: { name: 'Maker Print Preview', id: 'com.tim.makerprint.preview', scheme: 'makerprint-preview' },
-  production: { name: 'Maker Print', id: 'com.tim.makerprint', scheme: 'makerprint' },
+  development: { name: 'Maker Print Dev', id: `${ID_PREFIX}.makerprint.dev`, scheme: 'makerprint-dev' },
+  preview: { name: 'Maker Print Preview', id: `${ID_PREFIX}.makerprint.preview`, scheme: 'makerprint-preview' },
+  production: { name: 'Maker Print', id: `${ID_PREFIX}.makerprint`, scheme: 'makerprint' },
 } as const;
 
 type Variant = keyof typeof VARIANTS;
 
+// A Release build of Xcode (expo-constants' app-config phase runs this file with CONFIGURATION=Release) without APP_VARIANT would
+// embed the DEVELOPMENT config in an App Store binary. Refuse instead of defaulting; scripts/check-variant.sh reads it back.
+if (process.env.APP_VARIANT === undefined && /^release/i.test(process.env.CONFIGURATION ?? '')) {
+  throw new Error('APP_VARIANT is not set in a Release build. Prefix the command with APP_VARIANT=production (or preview), see docs/RELEASE_KIT.md.');
+}
 const variant = (process.env.APP_VARIANT ?? 'development') as Variant;
 if (!(variant in VARIANTS)) {
   throw new Error(`Unknown APP_VARIANT "${variant}". Use development, preview or production.`);
 }
 const { name, id, scheme } = VARIANTS[variant];
 
+// D24: splash and Android icon background come from the app's identity file (src/constants/brand.json), never a literal here.
+const IDENTITY = {
+  splash: { light: brand.light.background, dark: brand.dark.background },
+  iconBackground: brand.light.accent,
+};
+
+// Apple Developer team for signing: only from the environment (APPLE_TEAM_ID is not a secret, but it is not committed either).
+const appleTeamId = process.env.APPLE_TEAM_ID || undefined;
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name,
   slug: 'maker-print',
-  version: '1.1.0',
+  version: '1.2.0',
   orientation: 'portrait',
   icon: './assets/images/icon.png',
   scheme,
   userInterfaceStyle: 'automatic',
   ios: {
     bundleIdentifier: id,
-    buildNumber: '10100',
-    icon: './assets/expo.icon',
+    ...(appleTeamId ? { appleTeamId } : {}),
+    buildNumber: '10200',
+    icon: { light: './assets/images/icon.png', dark: './assets/images/icon-dark.png', tinted: './assets/images/icon-tinted.png' },
     // No encryption of our own (no network code; the OS does the printing), so App Store Connect stops asking at every
-    // upload (P7, D82). The owner confirms the export-compliance answer once.
+    // upload (P7, D82). Owner's standing approval ANSWERS.md 2026-11-07: no own crypto -> ITSAppUsesNonExemptEncryption false,
+    // all territories (the PDF library only opens a user-picked file whose user password is empty; it never encrypts).
     config: { usesNonExemptEncryption: false },
     // v1.1 (RELEASE_KIT 1c item 16): expo-file-system's own privacy manifest does not reach the built app (its pod bundle
     // ExpoFileSystem_privacy.bundle holds only Info.plist, read from the Release .app), so its reasons are declared at app
@@ -49,12 +69,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   android: {
     package: id,
-    versionCode: 10100,
+    versionCode: 10200,
     // No cloud/device backup of the database or the project files (same decision as the sibling apps, P7, D82): projects
     // can be exported as PDF; a restored phone starts clean instead of with half a backup.
     allowBackup: false,
     adaptiveIcon: {
-      backgroundColor: '#E6F4FE',
+      backgroundColor: '#6A1B9A',
       foregroundImage: './assets/images/android-icon-foreground.png',
       backgroundImage: './assets/images/android-icon-background.png',
       monochromeImage: './assets/images/android-icon-monochrome.png',
@@ -81,7 +101,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     // Only this variant's URL scheme survives a prebuild over another variant's native folders.
     ['./plugins/with-own-scheme-only.js', { own: scheme, all: Object.values(VARIANTS).map((v) => v.scheme) }],
     'expo-router',
-    ['expo-splash-screen', { backgroundColor: '#C62828', image: './assets/images/splash-icon.png', imageWidth: 76 }],
+    // Xcode 27 / iOS 27 traps at launch without scene support (starter D9); keep until SDK 58.
+    ['expo-build-properties', { ios: { enableSceneSupport: true } }],
+    ['expo-splash-screen', { backgroundColor: IDENTITY.splash.light, dark: { backgroundColor: IDENTITY.splash.dark }, image: './assets/images/splash-icon.png', imageWidth: 76 }],
     'expo-sqlite',
     // Library picking needs no permission (PHPicker / Android photo picker); no camera in v1 (V1_PLAN pinned additions).
     ['expo-image-picker', { photosPermission: false, cameraPermission: false, microphonePermission: false }],

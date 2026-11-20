@@ -1,8 +1,10 @@
 // Import questions (SPEC §8.9, §9.7): the SVG units question (96 / 72 / 90 / custom, each with the size it gives),
 // asked once per unit-less file, with the importer's report; and the PDF page chooser.
 import { useState } from 'react';
-import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
+import { Radius } from '@/constants/theme';
+import { Text } from './text';
 import type { Asset } from '@/db/assets';
 import { formatLength } from '@/engine/units';
 import { useTheme } from '@/hooks/use-theme';
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
   title: { fontSize: 22, fontWeight: '700' },
   body: { fontSize: 14, lineHeight: 20 },
   size: { fontSize: 16, fontWeight: '600' },
-  choice: { padding: 12, borderRadius: 10, gap: 4 },
+  choice: { padding: 12, borderRadius: Radius.control, gap: 4 },
   choiceTitle: { fontSize: 16, fontWeight: '600' },
   row: { flexDirection: 'row', gap: 10 },
 });

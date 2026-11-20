@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, type PressableProps } from 'react-native';
 
-import { Spacing } from '@/constants/theme';
+import { BrandFonts, Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
 type ButtonProps = Omit<PressableProps, 'children'> & {
@@ -18,12 +18,14 @@ export function Button({ label, variant = 'primary', disabled, style, ...rest }:
       disabled={disabled}
       style={(state) => [
         styles.button,
-        { backgroundColor: primary ? theme.tint : theme.backgroundElement },
+        primary
+          ? { backgroundColor: theme.tint }
+          : { backgroundColor: theme.backgroundElement, borderColor: theme.border, borderWidth: StyleSheet.hairlineWidth },
         (state.pressed || disabled) && styles.dimmed,
         typeof style === 'function' ? style(state) : style,
       ]}
       {...rest}>
-      <Text style={[styles.label, { color: primary ? theme.onTint : theme.text }]}>{label}</Text>
+      <Text style={[styles.label, { color: primary ? theme.onTint : theme.tintText }]}>{label}</Text>
     </Pressable>
   );
 }
@@ -31,12 +33,13 @@ export function Button({ label, variant = 'primary', disabled, style, ...rest }:
 const styles = StyleSheet.create({
   button: {
     minHeight: 48,
-    borderRadius: 12,
+    borderRadius: Radius.control,
     paddingHorizontal: Spacing.three,
     alignItems: 'center',
     justifyContent: 'center',
   },
   label: {
+    fontFamily: BrandFonts.body,
     fontSize: 16,
     fontWeight: 600,
   },

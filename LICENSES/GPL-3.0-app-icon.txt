@@ -1,0 +1,3 @@
+App icon (assets/images)
+
+The app icon and the icon-derived images are the app's own artwork, drawn for this project (a turned page with crop marks and a ruler, redesign R1 2026-11; drawn by scripts/make-icon-r1.swift from CoreGraphics paths). They contain no third-party artwork. They are released together with the app under the GNU General Public License v3 (see the LICENSE file).

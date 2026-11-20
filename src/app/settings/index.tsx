@@ -8,7 +8,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { paperLabel } from '@/components/editor-panels';
 import { Chips, LengthField, ToggleRow } from '@/components/fields';
 import { ThemedText } from '@/components/themed-text';
-import { Spacing } from '@/constants/theme';
+import { Radius, Spacing } from '@/constants/theme';
 import { useSQLiteContext } from '@/db/provider';
 import { getAppSettings, setAppSetting, type AppSettings } from '@/db/settings';
 import type { PaperKey } from '@/engine/paper';
@@ -114,5 +114,5 @@ const styles = StyleSheet.create({
   content: { padding: Spacing.three, gap: Spacing.two, paddingBottom: 64 },
   section: { marginTop: Spacing.three },
   fields: { flexDirection: 'row', gap: Spacing.two, marginTop: Spacing.two },
-  link: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: Spacing.three, borderRadius: 12 },
+  link: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: Spacing.three, borderRadius: Radius.control },
 });

@@ -2,9 +2,11 @@
 // select / drag / resize / rotate with snapping; Add · Align · Layers · Sheet; inspector; imports with their questions.
 // Every edit autosaves through the write queue (debounced 250 ms during drags, flushed on release, Back and background).
 import { Stack, useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
+import { Radius } from '@/constants/theme';
+import { Text } from '@/components/text';
 import { useSQLiteContext } from '@/db/provider';
 import { useCallback, useEffect, useState } from 'react';
-import { AppState, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { AppState, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { EditorCanvas, type ObjectChange } from '@/components/editor-canvas';
@@ -276,7 +278,7 @@ export default function EditorScreen() {
       </Pressable>
       {error ? (
         <Pressable testID="editor-error" onPress={() => setError(null)} style={[styles.error, { backgroundColor: theme.danger }]}>
-          <Text style={styles.errorText}>{error}</Text>
+          <Text style={[styles.errorText, { color: theme.onTint }]}>{error}</Text>
         </Pressable>
       ) : null}
       <EditorCanvas
@@ -421,10 +423,10 @@ export default function EditorScreen() {
 const styles = StyleSheet.create({
   flex: { flex: 1 },
   headerButton: { fontSize: 17, fontWeight: '600' },
-  chip: { marginHorizontal: 12, marginVertical: 6, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 10 },
+  chip: { marginHorizontal: 12, marginVertical: 6, paddingHorizontal: 12, paddingVertical: 8, borderRadius: Radius.control },
   chipText: { fontSize: 14, fontWeight: '500' },
-  error: { marginHorizontal: 12, marginBottom: 6, padding: 10, borderRadius: 8 },
-  errorText: { color: '#fff', fontSize: 14 },
+  error: { marginHorizontal: 12, marginBottom: 6, padding: 10, borderRadius: Radius.control },
+  errorText: { fontSize: 14 },
   panelWrap: { maxHeight: '48%' },
   panel: { flexGrow: 0 },
   panelContent: { padding: 12 },

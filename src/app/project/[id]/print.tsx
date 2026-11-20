@@ -4,8 +4,10 @@
 // (share sheet) and, on Android for multi-page jobs, "Print pages one by one (exact)".
 import { Link, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Alert, Image, Platform, Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { Alert, Image, Platform, Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
 
+import { Radius } from '@/constants/theme';
+import { Text } from '@/components/text';
 import { Button } from '@/components/button';
 import { paperLabel } from '@/components/editor-panels';
 import { BusyOverlay, Chips, LengthField, nextFrame, ToggleRow } from '@/components/fields';
@@ -28,6 +30,7 @@ import { getUiLanguage, printTranslator, t, type TranslationKey } from '@/i18n';
 import { loadOutputContext, loadProjectDoc, previewUris, projectAssetLoader } from '@/lib/doc';
 import { printPdfFile, writePlanPdf, type PrintOutcome } from '@/lib/print';
 import { describeOutcome, type Line } from '@/lib/print-outcome';
+import { recordFinishedJob } from '@/lib/review-prompt';
 import { sharePdf } from '@/lib/share';
 
 const OUTPUT_PAPERS: PaperKey[] = ['a4', 'letter', 'a3', 'a5', 'legal', 'tabloid'];
@@ -208,6 +211,7 @@ export default function PrintScreen() {
       const r = await printPdfFile(file, { jobName, plan: plan!, ...printOpts });
       setOfferSafeRoute(r.correctionOtherPrinter !== null);
       setLines(withNotes(describe(r, plan!.pages.length), file.notes.length));
+      if (r.completed) void recordFinishedJob(db);
     } catch (e) {
       setLines([{ text: t('cal.ui.error', { error: String((e as Error)?.message ?? e) }), level: 'warn' }]);
     } finally {
@@ -242,6 +246,7 @@ export default function PrintScreen() {
       const tail = last ? describe(last, 1) : [];
       setOfferSafeRoute(last?.correctionOtherPrinter != null);
       setLines(withNotes([{ text: t('print.oneByOne.done', { total: n }), level: 'ok' }, ...tail], notes));
+      void recordFinishedJob(db);
     } catch (e) {
       setLines([{ text: t('cal.ui.error', { error: String((e as Error)?.message ?? e) }), level: 'warn' }]);
     } finally {
@@ -262,6 +267,7 @@ export default function PrintScreen() {
       const file = await write(p, name, t('check.measureExport'));
       setBusy(null);
       const shared = await sharePdf(file.uri, t('print.export'));
+      if (shared === 'shared') void recordFinishedJob(db);
       setLines(
         withNotes(
           shared === 'shared'
@@ -277,7 +283,7 @@ export default function PrintScreen() {
     }
   }
 
-  const lineColour = (l: Line) => (l.level === 'warn' ? '#E65100' : l.level === 'ok' ? theme.text : theme.textSecondary);
+  const lineColour = (l: Line) => (l.level === 'warn' ? theme.warn : l.level === 'ok' ? theme.text : theme.textSecondary);
 
   return (
     <View style={styles.flex}>
@@ -292,7 +298,7 @@ export default function PrintScreen() {
         {plan.warnings.length ? (
           <View testID="plan-warnings" style={styles.warnings}>
             {plan.warnings.map((w, i) => (
-              <Text key={i} testID={`warning-${w.code}`} style={[styles.warning, { color: w.level === 'error' ? theme.danger : w.level === 'warn' ? '#E65100' : theme.textSecondary }]}>
+              <Text key={i} testID={`warning-${w.code}`} style={[styles.warning, { color: w.level === 'error' ? theme.danger : w.level === 'warn' ? theme.warn : theme.textSecondary }]}>
                 • {warningText(w)}
               </Text>
             ))}
@@ -411,7 +417,7 @@ export default function PrintScreen() {
         ) : null}
         {printerNeeds ? (
           <View testID="print-margins-below-printer" style={styles.box}>
-            <Text style={[styles.small, { color: '#E65100' }]}>
+            <Text style={[styles.small, { color: theme.warn }]}>
               {t('print.marginsBelowPrinter', { l: fmt(printerNeeds.l), t: fmt(printerNeeds.t), r: fmt(printerNeeds.r), b: fmt(printerNeeds.b) })}
             </Text>
             <Button testID="print-use-printer-margins" variant="secondary" label={t('print.usePrinterMargins')} onPress={() => void takePrinterMargins()} />
@@ -450,7 +456,7 @@ const styles = StyleSheet.create({
   content: { padding: 16, gap: 10, paddingBottom: 48 },
   sub: { fontSize: 12, fontWeight: '700', textTransform: 'uppercase', marginTop: 6 },
   summary: { fontSize: 17, fontWeight: '600' },
-  guide: { fontSize: 14, padding: 10, borderRadius: 8, overflow: 'hidden' },
+  guide: { fontSize: 14, padding: 10, borderRadius: Radius.control, overflow: 'hidden' },
   warnings: { gap: 4 },
   warning: { fontSize: 13, lineHeight: 18 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },

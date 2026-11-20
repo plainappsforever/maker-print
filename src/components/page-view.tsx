@@ -4,6 +4,7 @@
 import { memo } from 'react';
 import Svg, { ClipPath, Defs, G, Path, Rect, Text as SvgText } from 'react-native-svg';
 
+import { SelectColor } from '@/constants/theme';
 import { checkBarContent, checkBarMatrix } from '@/engine/checkbar';
 import type { Page, PrintPlan } from '@/engine/plan';
 
@@ -20,7 +21,7 @@ export const PageView = memo(function PageView({ page, plan, previews, caption, 
     <Svg width={width} height={H * k}>
       <G transform={[k, 0, 0, k, 0, 0]}>
         <Rect x={0} y={0} width={W} height={H} fill="white" stroke="rgb(150,150,150)" strokeWidth={hair} />
-        <Rect x={page.safe.x} y={page.safe.y} width={page.safe.w} height={page.safe.h} fill="none" stroke="rgb(10,107,216)" strokeOpacity={0.35} strokeWidth={hair} strokeDasharray={[hair * 4, hair * 3]} />
+        <Rect x={page.safe.x} y={page.safe.y} width={page.safe.w} height={page.safe.h} fill="none" stroke={SelectColor} strokeOpacity={0.35} strokeWidth={hair} strokeDasharray={[hair * 4, hair * 3]} />
         {page.ops.map((op, i) => {
           const id = `pg${index}c${i}`;
           if (op.op === 'path') {

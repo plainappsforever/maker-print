@@ -5,7 +5,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 source scripts/env.sh
 platform=${1:?}; out=${2:?}
-app=com.tim.makerprint.dev
+app=com.plainapps.makerprint.dev
 : >"$out"
 [[ $platform == ios ]] && udid=$(scripts/boot.sh ios)
 while true; do

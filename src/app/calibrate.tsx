@@ -3,12 +3,13 @@
 // coarse bank-card check). Step 3: verdict and Save correction → used by the next print on that paper and job kind;
 // "Print the corrected sheet" checks it.
 import { useState, useEffect } from 'react';
-import { Platform, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, View } from 'react-native';
 
+import { TextInput } from '@/components/text';
 import { Button } from '@/components/button';
 import { Chips, SmallButton } from '@/components/fields';
 import { ThemedText } from '@/components/themed-text';
-import { Spacing } from '@/constants/theme';
+import { Radius, Spacing } from '@/constants/theme';
 import { listCalibrations, saveCalibration, type Calibration } from '@/db/calibrations';
 import { createProfile, listProfiles, type Profile } from '@/db/profiles';
 import { useSQLiteContext } from '@/db/provider';
@@ -193,7 +194,7 @@ export default function CalibrateScreen() {
       ) : null}
       <View testID="calibration-outcome" style={styles.outcome}>
         {lines.map((l, i) => (
-          <ThemedText key={i} testID={`calibration-outcome-${i}`} type="small" style={l.level === 'warn' ? styles.warn : undefined}>
+          <ThemedText key={i} testID={`calibration-outcome-${i}`} type="small" themeColor={l.level === 'warn' ? 'warn' : undefined}>
             {l.text}
           </ThemedText>
         ))}
@@ -218,7 +219,7 @@ export default function CalibrateScreen() {
         </View>
       </View>
       {evaluation.state === 'invalid' ? (
-        <ThemedText testID="cal-error" type="small" style={styles.warn}>
+        <ThemedText testID="cal-error" type="small" themeColor="warn">
           {`${evaluation.field.toUpperCase()}: ${t(`units.error.${evaluation.error}` as TranslationKey)}`}
         </ThemedText>
       ) : null}
@@ -252,12 +253,12 @@ export default function CalibrateScreen() {
         </ThemedText>
       ) : null}
       {!profile && evaluation.state === 'result' ? (
-        <ThemedText type="small" style={styles.warn}>
+        <ThemedText type="small" themeColor="warn">
           {t('cal.ui.needPrinter')}
         </ThemedText>
       ) : null}
       {evaluation.state === 'result' && !saved ? (
-        <ThemedText testID="cal-target" type="small" style={chipsMoved ? styles.warn : undefined} themeColor={chipsMoved ? undefined : 'textSecondary'}>
+        <ThemedText testID="cal-target" type="small" themeColor={chipsMoved ? 'warn' : 'textSecondary'}>
           {!printed
             ? t('cal.ui.notPrintedHere')
             : chipsMoved
@@ -283,7 +284,6 @@ const styles = StyleSheet.create({
   outcome: { gap: Spacing.two },
   row: { flexDirection: 'row', gap: Spacing.two, alignItems: 'flex-end' },
   flex: { flex: 1, gap: 4 },
-  input: { flex: 1, minHeight: 40, borderRadius: 8, paddingHorizontal: 10, fontSize: 16 },
-  field: { minHeight: 40, borderRadius: 8, paddingHorizontal: 10, fontSize: 16 },
-  warn: { color: '#E65100' },
+  input: { flex: 1, minHeight: 40, borderRadius: Radius.control, paddingHorizontal: 10, fontSize: 16 },
+  field: { minHeight: 40, borderRadius: Radius.control, paddingHorizontal: 10, fontSize: 16 },
 });

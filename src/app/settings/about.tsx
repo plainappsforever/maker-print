@@ -2,11 +2,12 @@
 // parts it is built from (v1.1, RELEASE_KIT 1c items 12, 13, 15).
 import Constants from 'expo-constants';
 import { Link, type Href } from 'expo-router';
-import { Linking, Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Linking, Platform, Pressable, ScrollView, StyleSheet } from 'react-native';
 
+import { Card } from '@/components/card';
 import { ThemedText } from '@/components/themed-text';
 import { PRIVACY_URL } from '@/constants/links';
-import { Spacing } from '@/constants/theme';
+import { Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { t } from '@/i18n';
 
@@ -17,13 +18,13 @@ export default function AboutScreen() {
     <ScrollView testID="about-screen" style={{ backgroundColor: theme.background }} contentContainerStyle={styles.content} contentInsetAdjustmentBehavior="automatic">
       <ThemedText type="smallBold">{t('about.privacy.title')}</ThemedText>
       <ThemedText testID="about-privacy">{t('about.privacy.body')}</ThemedText>
-      <View style={[styles.card, { backgroundColor: theme.backgroundElement }]}>
+      <Card style={styles.card}>
         <ThemedText type="small">{t('about.files')}</ThemedText>
         {/* Android: allowBackup is off (D82), so the phone's backup does NOT hold the projects (RELEASE_KIT 1c item 12) */}
         <ThemedText testID="about-backup" type="small">
           {t(Platform.OS === 'android' ? 'about.backup.android' : 'about.backup.ios')}
         </ThemedText>
-      </View>
+      </Card>
       <Pressable testID="about-privacy-link" accessibilityRole="link" hitSlop={6} style={row} onPress={() => void Linking.openURL(PRIVACY_URL)}>
         <ThemedText>{t('about.privacyLink')}</ThemedText>
         <ThemedText themeColor="textSecondary">↗</ThemedText>
@@ -50,6 +51,6 @@ export default function AboutScreen() {
 
 const styles = StyleSheet.create({
   content: { padding: Spacing.three, gap: Spacing.three, paddingBottom: 64 },
-  card: { padding: Spacing.three, borderRadius: 12, gap: Spacing.two },
-  link: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: Spacing.three, borderRadius: 12 },
+  card: { padding: Spacing.three, borderRadius: Radius.control, gap: Spacing.two },
+  link: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: Spacing.three, borderRadius: Radius.control },
 });

@@ -1,0 +1,30 @@
+{
+  "_doc": "The app's identity (D24). Maker Print: vermilion on warm paper, SF Pro Rounded, page tiles with crop marks (sheet 5 in tasks-and-reports/DESIGN_IDENTITIES.md). Field guide: docs/DESIGN_TOKENS.md in mobile-starter. Read by src/constants/theme.ts (screens) and app.config.ts (splash, Android icon background).",
+  "light": {
+    "accent": "#C23E19",
+    "onAccent": "#FFFFFF",
+    "accentText": "#C23E19",
+    "background": "#F5EFE8",
+    "surface": "#FFFFFF",
+    "border": "#DCD7D1"
+  },
+  "dark": {
+    "accent": "#FF8A5F",
+    "onAccent": "#16181A",
+    "accentText": "#FF8A5F",
+    "background": "#25201B",
+    "surface": "#34302B",
+    "border": "#46413D"
+  },
+  "fonts": {
+    "title": "rounded",
+    "body": "rounded",
+    "numerals": "rounded"
+  },
+  "radius": {
+    "control": 10,
+    "card": 10
+  },
+  "card": "outlined",
+  "density": "regular"
+}

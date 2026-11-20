@@ -3,10 +3,11 @@
 // Gestures run on the JS thread (react-native-gesture-handler, runOnJS) and feed a reducer: the live box is local
 // state, the parent receives one commit per gesture (autosave), so a drag re-renders only the canvas.
 import { useReducer, useState } from 'react';
-import { Pressable, StyleSheet, Text, View, type LayoutChangeEvent } from 'react-native';
+import { Pressable, StyleSheet, View, type LayoutChangeEvent } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Svg, { G } from 'react-native-svg';
 
+import { Radius, SelectColor } from '@/constants/theme';
 import type { Asset } from '@/db/assets';
 import type { SheetObject } from '@/db/objects';
 import { HANDLE_HIT_PT, hitHandle, hitObject, moveBox, resizeBox, rotateBox, ROTATE_HANDLE_PT, snapContextFor, type Box, type Corner, type SnapContext } from '@/editor/gestures';
@@ -16,9 +17,12 @@ import type { GenContext } from '@/engine/generators';
 import type { Margins } from '@/engine/paper';
 import type { SnapGuide } from '@/engine/snap';
 import type { Tile } from '@/engine/tiles';
+import { useTheme } from '@/hooks/use-theme';
 import { t } from '@/i18n';
 
+import { GridBackdrop } from './grid-backdrop';
 import { SheetGraphic } from './sheet-graphic';
+import { Text } from './text';
 
 export type ObjectChange = Partial<Pick<SheetObject, 'x' | 'y' | 'w' | 'h' | 'rotationDeg'>>;
 type Mode =
@@ -90,6 +94,7 @@ export type EditorCanvasProps = {
 };
 
 export function EditorCanvas(props: EditorCanvasProps) {
+  const theme = useTheme();
   const [size, setSize] = useState<{ w: number; h: number } | null>(null);
   // the view resets to "whole sheet" whenever the sheet, its size or the canvas size changes
   const fitKey = `${props.sheet.id}:${props.sheet.widthMm}x${props.sheet.heightMm}:${size?.w}x${size?.h}`;
@@ -176,7 +181,8 @@ export function EditorCanvas(props: EditorCanvasProps) {
   const shown = live ? props.objects.map((o) => (o.id === live.id ? { ...o, ...live.change } : o)) : props.objects;
 
   return (
-    <View style={styles.wrap} onLayout={onLayout} testID="editor-canvas">
+    <View style={[styles.wrap, { backgroundColor: theme.background }]} onLayout={onLayout} testID="editor-canvas">
+      <GridBackdrop />
       <GestureDetector gesture={gesture}>
         <View style={StyleSheet.absoluteFill} collapsable={false}>
           {size && view ? (
@@ -202,14 +208,14 @@ export function EditorCanvas(props: EditorCanvasProps) {
         </View>
       </GestureDetector>
       <Pressable testID="canvas-fit" accessibilityRole="button" style={styles.fit} onPress={() => size && setView(fitView({ w: props.sheet.widthMm, h: props.sheet.heightMm }, size))}>
-        <Text style={styles.fitText}>{t('editor.fit')}</Text>
+        <Text style={[styles.fitText, { color: SelectColor }]}>{t('editor.fit')}</Text>
       </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  wrap: { flex: 1, backgroundColor: '#D9DCE1', overflow: 'hidden' },
-  fit: { position: 'absolute', right: 8, top: 8, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, backgroundColor: 'rgba(255,255,255,0.9)' },
-  fitText: { fontSize: 13, fontWeight: '600', color: '#0A6BD8' },
+  wrap: { flex: 1, overflow: 'hidden' },
+  fit: { position: 'absolute', right: 8, top: 8, paddingHorizontal: 10, paddingVertical: 6, borderRadius: Radius.control, backgroundColor: 'rgba(255,255,255,0.9)' },
+  fitText: { fontSize: 13, fontWeight: '600' },
 });

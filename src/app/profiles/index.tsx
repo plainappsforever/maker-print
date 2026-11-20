@@ -1,11 +1,12 @@
 // Printer profiles (SPEC §9.5; D17, D18, D76): each printer keeps its margins and its corrections per paper × job kind.
 import { Link, useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
+import { TextInput } from '@/components/text';
 import { SmallButton } from '@/components/fields';
 import { ThemedText } from '@/components/themed-text';
-import { Spacing } from '@/constants/theme';
+import { Radius, Spacing } from '@/constants/theme';
 import { listCalibrations } from '@/db/calibrations';
 import { createProfile, listProfiles, type Profile } from '@/db/profiles';
 import { useSQLiteContext } from '@/db/provider';
@@ -75,7 +76,7 @@ export default function ProfilesScreen() {
 
 const styles = StyleSheet.create({
   content: { padding: Spacing.three, gap: Spacing.three },
-  card: { padding: Spacing.three, borderRadius: 12, gap: 4 },
+  card: { padding: Spacing.three, borderRadius: Radius.control, gap: 4 },
   row: { flexDirection: 'row', gap: Spacing.two, alignItems: 'center' },
-  input: { flex: 1, minHeight: 40, borderRadius: 8, paddingHorizontal: 10, fontSize: 16 },
+  input: { flex: 1, minHeight: 40, borderRadius: Radius.control, paddingHorizontal: 10, fontSize: 16 },
 });

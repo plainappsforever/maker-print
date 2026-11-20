@@ -1,7 +1,9 @@
 // Editor bottom-bar panels (SPEC §9.2): Add · Align · Layers · Sheet.
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
+import { Radius } from '@/constants/theme';
+import { Text } from './text';
 import type { ObjectKind, SheetObject } from '@/db/objects';
 import type { Project } from '@/db/projects';
 import type { Sheet } from '@/db/sheets';
@@ -177,10 +179,10 @@ const styles = StyleSheet.create({
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   col: { gap: 10, paddingBottom: 24 },
   row: { flexDirection: 'row', gap: 10, alignItems: 'flex-end', flexWrap: 'wrap' },
-  tile: { paddingHorizontal: 12, paddingVertical: 12, borderRadius: 10, minWidth: 96, alignItems: 'center' },
+  tile: { paddingHorizontal: 12, paddingVertical: 12, borderRadius: Radius.control, minWidth: 96, alignItems: 'center' },
   tileText: { fontSize: 14, fontWeight: '600' },
   hint: { fontSize: 14 },
-  layer: { flexDirection: 'row', alignItems: 'center', gap: 4, borderRadius: 8, padding: 4 },
+  layer: { flexDirection: 'row', alignItems: 'center', gap: 4, borderRadius: Radius.control, padding: 4 },
   layerName: { flex: 1, paddingHorizontal: 8, paddingVertical: 8 },
   sub: { fontSize: 12, fontWeight: '700', textTransform: 'uppercase', marginTop: 6 },
 });

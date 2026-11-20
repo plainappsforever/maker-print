@@ -10,7 +10,7 @@ cd "$(dirname "$0")/../.."
 source scripts/env.sh
 mode=${1:?mode}; set=${2:?seed}; pages=${3:-1}; one=${4:-keep}
 printer=${PRINTER:-MakerPrint Android} # PRINTER="Save as PDF": the PrintSpooler's PDF printer (no network)
-app=${APP:-com.tim.makerprint.dev} # APP=com.tim.makerprint.preview OPEN_FLOW=.maestro/release/android-open-dialog.yaml: the Release build (P7)
+app=${APP:-com.plainapps.makerprint.dev} # APP=com.plainapps.makerprint.preview OPEN_FLOW=.maestro/release/android-open-dialog.yaml: the Release build (P7)
 open_flow=${OPEN_FLOW:-.maestro/measure/android-open-dialog.yaml}
 out="artifacts/maestro/android-measure-p6-$mode-$set-$(date +%H%M%S)"
 maestro --device "$ANDROID_SERIAL" test -e APP_ID=$app -e MODE="$mode" -e SET="$set" -e ONE="$one" --test-output-dir "$out" "$open_flow" >/dev/null

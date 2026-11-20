@@ -63,8 +63,7 @@ test/blind/stress/
 keystore.properties
 *.keystore
 !android/app/debug.keystore
-google-services.json
-GoogleService-Info.plist
-.env
-.env.*
-test/fixtures/real/
+
+# App Store Connect helpers (store paperwork, local only)
+__pycache__/
+scripts/*.local.json

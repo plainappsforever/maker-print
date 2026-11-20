@@ -1,6 +1,7 @@
 // The importer's honest report (D24, D50, L26): what of an SVG is not printed or printed differently, PDF notes.
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
+import { Text } from './text';
 import { useTheme } from '@/hooks/use-theme';
 import { t, type TranslationKey } from '@/i18n';
 import type { AssetReport } from '@/import/assets';

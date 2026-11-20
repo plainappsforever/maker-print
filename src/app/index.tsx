@@ -1,12 +1,19 @@
-// Projects (SPEC §9.1): cards (thumbnail, name, sheet size, pages, last edited), New, row actions Rename / Duplicate /
-// Delete, the "Calibrate your printer once" banner and Settings. No dialog at first launch (L10).
+// Projects (SPEC §9.1): a two-column grid of page tiles with crop marks (thumbnail, name, sheet size, sheets, last edited),
+// a floating New button, tile actions Rename / Duplicate / Delete, the "Calibrate your printer once" banner and Settings.
+// No dialog at first launch (L10). Redesign R1: graph-paper background, drawn empty state.
 import { Link, Stack, useFocusEffect, useRouter } from 'expo-router';
+import { Radius } from '@/constants/theme';
+import { Text, TextInput } from '@/components/text';
 import { useSQLiteContext } from '@/db/provider';
 import { useCallback, useEffect, useState } from 'react';
-import { Alert, FlatList, KeyboardAvoidingView, Modal, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, FlatList, KeyboardAvoidingView, Modal, Platform, Pressable, StyleSheet, useWindowDimensions, View } from 'react-native';
+import { SymbolView } from 'expo-symbols';
 import Svg, { G } from 'react-native-svg';
 
 import { Button } from '@/components/button';
+import { CropMarks } from '@/components/crop-marks';
+import { EmptyTile } from '@/components/empty-tile';
+import { GridBackdrop } from '@/components/grid-backdrop';
 import { paperLabel } from '@/components/editor-panels';
 import { BusyOverlay, nextFrame, type UnitPrefs } from '@/components/fields';
 import { NewProjectSheet, type NewChoice } from '@/components/new-project';
@@ -32,6 +39,9 @@ export default function ProjectsScreen() {
   const router = useRouter();
   const theme = useTheme();
   const lang = getUiLanguage();
+  const { width } = useWindowDimensions();
+  const columns = width >= 700 ? 3 : 2;
+  const tileSize = Math.floor((width - PAD * 2 - GUTTER * (columns - 1)) / columns);
   const [projects, setProjects] = useState<ProjectSummary[] | null>(null);
   const [settings, setSettings] = useState<AppSettings | null>(null);
   const [showNew, setShowNew] = useState(false);
@@ -139,12 +149,13 @@ export default function ProjectsScreen() {
   const banner = settings && !settings.calibrationBannerDismissed;
   return (
     <View testID="projects-screen" style={[styles.flex, { backgroundColor: theme.background }]}>
+      <GridBackdrop />
       <Stack.Screen
         options={{
           headerRight: () => (
             <Link href="/settings" asChild>
               <Pressable testID="open-settings" accessibilityRole="button" accessibilityLabel={t('nav.settings')} hitSlop={10}>
-                <Text style={[styles.headerButton, { color: theme.tint }]}>⚙︎</Text>
+                <SymbolView name="gearshape" size={22} tintColor={theme.tintText} fallback={<Text style={[styles.headerButton, { color: theme.tintText }]}>⚙︎</Text>} />
               </Pressable>
             </Link>
           ),
@@ -152,6 +163,7 @@ export default function ProjectsScreen() {
       />
       {banner ? (
         <View style={[styles.banner, { backgroundColor: theme.backgroundElement }]}>
+          <CropMarks length={8} inset={3} />
           <Link href="/calibrate" asChild>
             <Pressable testID="open-calibrate" accessibilityRole="link" style={styles.flex}>
               <Text style={[styles.bannerText, { color: theme.text }]}>{t('projects.calibrateBanner')}</Text>
@@ -173,25 +185,43 @@ export default function ProjectsScreen() {
       ) : (
         <Link href="/calibrate" asChild>
           <Pressable testID="open-calibrate" accessibilityRole="link" style={styles.calLink}>
-            <Text style={[styles.small, { color: theme.tint }]}>{t('nav.calibrate')}</Text>
+            <Text style={[styles.small, { color: theme.tintText }]}>{t('nav.calibrate')}</Text>
           </Pressable>
         </Link>
       )}
       {error ? (
         <Pressable testID="import-error" onPress={() => setError(null)} style={[styles.error, { backgroundColor: theme.danger }]}>
-          <Text style={styles.errorText}>{error}</Text>
+          <Text style={[styles.errorText, { color: theme.onTint }]}>{error}</Text>
         </Pressable>
       ) : null}
       <FlatList
+        key={columns}
         data={projects ?? []}
+        numColumns={columns}
         keyExtractor={(p) => String(p.id)}
         contentContainerStyle={styles.list}
-        ListEmptyComponent={projects ? <Text style={[styles.empty, { color: theme.textSecondary }]}>{t('projects.empty')}</Text> : null}
-        renderItem={({ item, index }) => <ProjectCard p={item} index={index} prefs={prefs} onOpen={() => open(item.id)} onMore={() => setActions(item)} />}
+        columnWrapperStyle={styles.row}
+        ListEmptyComponent={
+          projects ? (
+            <View style={styles.emptyWrap}>
+              <EmptyTile size={Math.min(tileSize, 200)} />
+              <Text testID="projects-empty" style={[styles.empty, { color: theme.textSecondary }]}>
+                {t('projects.empty')}
+              </Text>
+            </View>
+          ) : null
+        }
+        renderItem={({ item, index }) => <ProjectTile p={item} index={index} size={tileSize} prefs={prefs} onOpen={() => open(item.id)} onMore={() => setActions(item)} />}
       />
-      <View style={styles.footer}>
-        <Button label={t('projects.new')} testID="new-project" onPress={() => setShowNew(true)} />
-      </View>
+      <Pressable
+        testID="new-project"
+        accessibilityRole="button"
+        accessibilityLabel={t('projects.new')}
+        onPress={() => setShowNew(true)}
+        style={({ pressed }) => [styles.fab, { backgroundColor: theme.tint, opacity: pressed ? 0.8 : 1 }]}>
+        <SymbolView name="plus" size={18} weight="semibold" tintColor={theme.onTint} fallback={<Text style={[styles.fabPlus, { color: theme.onTint }]}>+</Text>} />
+        <Text style={[styles.fabLabel, { color: theme.onTint }]}>{t('projects.new')}</Text>
+      </Pressable>
       {settings ? <NewProjectSheet visible={showNew} defaultPaper={settings.defaultPaper} prefs={prefs} onChoose={(c) => void create(c)} onClose={() => setShowNew(false)} /> : null}
       <Modal visible={actions !== null} transparent animationType="fade" onRequestClose={() => setActions(null)}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.flex}>
@@ -238,34 +268,35 @@ function ago(ms: number): string {
   return new Date(ms).toLocaleDateString(getUiLanguage() === 'de' ? 'de-DE' : 'en-GB');
 }
 
-function ProjectCard({ p, index, prefs, onOpen, onMore }: { p: ProjectSummary; index: number; prefs: UnitPrefs; onOpen: () => void; onMore: () => void }) {
+function ProjectTile({ p, index, size, prefs, onOpen, onMore }: { p: ProjectSummary; index: number; size: number; prefs: UnitPrefs; onOpen: () => void; onMore: () => void }) {
   const theme = useTheme();
-  const size = `${formatLength(p.widthMm, { ...prefs, withUnit: false })} × ${formatLength(p.heightMm, prefs)}`;
+  const info = `${formatLength(p.widthMm, { ...prefs, withUnit: false })} × ${formatLength(p.heightMm, prefs)}${p.sheetCount > 1 ? ` · ${t('projects.sheets', { n: p.sheetCount })}` : ''}`;
   return (
-    <View style={[styles.card, { backgroundColor: theme.backgroundElement }]}>
-      <Pressable testID={`project-${index}`} accessibilityRole="button" onPress={onOpen} style={styles.cardMain}>
-        <Thumbnail projectId={p.id} updatedAt={p.updatedAt} w={p.widthMm} h={p.heightMm} />
-        <View style={styles.flex}>
-          <Text style={[styles.cardTitle, { color: theme.text }]} numberOfLines={1}>
-            {p.name}
-          </Text>
-          <Text style={[styles.small, { color: theme.textSecondary }]}>
-            {size}
-            {p.sheetCount > 1 ? ` · ${t('projects.sheets', { n: p.sheetCount })}` : ''}
-          </Text>
-          <Text style={[styles.small, { color: theme.textSecondary }]}>{ago(p.updatedAt)}</Text>
+    <View style={{ width: size }}>
+      <Pressable testID={`project-${index}`} accessibilityRole="button" onPress={onOpen}>
+        <View style={[styles.tile, { width: size, height: size, backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
+          <Thumbnail projectId={p.id} updatedAt={p.updatedAt} w={p.widthMm} h={p.heightMm} box={size - 36} />
+          <CropMarks length={10} inset={6} />
         </View>
+        <Text style={[styles.cardTitle, { color: theme.text }]} numberOfLines={1}>
+          {p.name}
+        </Text>
+        <Text style={[styles.small, { color: theme.textSecondary, fontVariant: ['tabular-nums'] }]} numberOfLines={1}>
+          {info}
+        </Text>
+        <Text style={[styles.small, { color: theme.textSecondary }]}>{ago(p.updatedAt)}</Text>
       </Pressable>
-      <Pressable testID={`project-more-${index}`} accessibilityRole="button" accessibilityLabel={t('projects.more')} onPress={onMore} hitSlop={10} style={styles.more}>
+      <Pressable testID={`project-more-${index}`} accessibilityRole="button" accessibilityLabel={t('projects.more')} onPress={onMore} hitSlop={6} style={styles.more}>
         <Text style={[styles.moreText, { color: theme.textSecondary }]}>⋯</Text>
       </Pressable>
     </View>
   );
 }
 
-const THUMB = 64;
+const PAD = 16;
+const GUTTER = 10;
 /** First sheet drawn small with its objects (no thumbnail files to keep in sync). */
-function Thumbnail({ projectId, updatedAt, w, h }: { projectId: number; updatedAt: number; w: number; h: number }) {
+function Thumbnail({ projectId, updatedAt, w, h, box }: { projectId: number; updatedAt: number; w: number; h: number; box: number }) {
   const db = useSQLiteContext();
   const [state, setState] = useState<{ doc: ProjectDoc; previews: Record<string, string> } | null>(null);
   useEffect(() => {
@@ -277,13 +308,13 @@ function Thumbnail({ projectId, updatedAt, w, h }: { projectId: number; updatedA
       alive = false;
     };
   }, [db, projectId, updatedAt]);
-  const k = Math.min(THUMB / w, THUMB / h);
+  const k = Math.min(box / w, box / h);
   const ctx: GenContext = { locale: getUiLanguage(), unit: 'mm', inchStyle: 'fraction16', t: printTranslator(getUiLanguage()) };
   const sheet = state?.doc.sheets[0];
   return (
-    <View style={styles.thumb}>
-      <Svg width={THUMB} height={THUMB}>
-        <G transform={[k, 0, 0, k, (THUMB - w * k) / 2, (THUMB - h * k) / 2]}>
+    <View style={[styles.thumb, { width: box, height: box }]}>
+      <Svg width={box} height={box}>
+        <G transform={[k, 0, 0, k, (box - w * k) / 2, (box - h * k) / 2]}>
           {sheet ? (
             <SheetGraphic
               sheet={sheet}
@@ -305,24 +336,27 @@ function Thumbnail({ projectId, updatedAt, w, h }: { projectId: number; updatedA
 const styles = StyleSheet.create({
   flex: { flex: 1 },
   headerButton: { fontSize: 22 },
-  banner: { flexDirection: 'row', alignItems: 'center', gap: 8, margin: 12, marginBottom: 0, padding: 12, borderRadius: 12 },
+  banner: { flexDirection: 'row', alignItems: 'center', gap: 8, margin: PAD, marginBottom: 0, paddingVertical: 14, paddingHorizontal: 16 },
   bannerText: { fontSize: 16, fontWeight: '600' },
   close: { fontSize: 18, padding: 4 },
-  calLink: { paddingHorizontal: 16, paddingVertical: 8, alignSelf: 'flex-start' },
+  calLink: { paddingHorizontal: PAD, paddingVertical: 8, alignSelf: 'flex-start' },
   small: { fontSize: 13 },
-  error: { margin: 12, marginBottom: 0, padding: 10, borderRadius: 8 },
-  errorText: { color: '#fff', fontSize: 14 },
-  list: { padding: 12, gap: 10 },
-  empty: { fontSize: 16, textAlign: 'center', marginTop: 40 },
-  footer: { padding: 16, paddingBottom: 32, gap: 4 },
-  card: { flexDirection: 'row', alignItems: 'center', borderRadius: 12 },
-  cardMain: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 12, padding: 10 },
-  cardTitle: { fontSize: 16, fontWeight: '600' },
-  more: { padding: 14 },
+  error: { margin: 12, marginBottom: 0, padding: 10, borderRadius: Radius.control },
+  errorText: { fontSize: 14 },
+  list: { padding: PAD, paddingBottom: 110, gap: 14 },
+  row: { gap: GUTTER },
+  emptyWrap: { alignItems: 'center', gap: 20, marginTop: 40, paddingHorizontal: 24 },
+  empty: { fontSize: 16, textAlign: 'center' },
+  fab: { position: 'absolute', right: PAD, bottom: PAD + 8, flexDirection: 'row', alignItems: 'center', gap: 8, minHeight: 52, paddingHorizontal: 20, borderRadius: 26, boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.25)' },
+  fabPlus: { fontSize: 22, fontWeight: '600' },
+  fabLabel: { fontSize: 16, fontWeight: '600' },
+  tile: { alignItems: 'center', justifyContent: 'center', borderWidth: StyleSheet.hairlineWidth, marginBottom: 8 },
+  cardTitle: { fontSize: 15, fontWeight: '600' },
+  more: { position: 'absolute', top: 6, right: 6, width: 32, height: 28, alignItems: 'center', justifyContent: 'center' },
   moreText: { fontSize: 22, fontWeight: '700' },
-  thumb: { width: THUMB, height: THUMB, borderRadius: 6, backgroundColor: '#D9DCE1', overflow: 'hidden' },
+  thumb: { overflow: 'hidden' },
   scrim: { flex: 1, backgroundColor: 'rgba(0,0,0,0.35)', justifyContent: 'flex-end' },
   sheet: { padding: 20, paddingBottom: 40, gap: 10, borderTopLeftRadius: 16, borderTopRightRadius: 16 },
   sheetTitle: { fontSize: 18, fontWeight: '700' },
-  input: { minHeight: 44, borderRadius: 8, paddingHorizontal: 10, fontSize: 16 },
+  input: { minHeight: 44, borderRadius: Radius.control, paddingHorizontal: 10, fontSize: 16 },
 });

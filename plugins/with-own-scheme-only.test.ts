@@ -38,8 +38,8 @@ describe('with-own-scheme-only', () => {
   });
 
   it('iOS: CFBundleURLSchemes keeps only the own scheme', () => {
-    const plist = { CFBundleURLTypes: [{ CFBundleURLSchemes: ['makerprint-dev', 'makerprint-preview', 'com.tim.makerprint.preview'] }, { CFBundleURLSchemes: ['makerprint'] }] };
+    const plist = { CFBundleURLTypes: [{ CFBundleURLSchemes: ['makerprint-dev', 'makerprint-preview', 'com.plainapps.makerprint.preview'] }, { CFBundleURLSchemes: ['makerprint'] }] };
     withOwnSchemeOnly({ plist }, { own: 'makerprint-preview', all: ALL });
-    expect(plist.CFBundleURLTypes).toEqual([{ CFBundleURLSchemes: ['makerprint-preview', 'com.tim.makerprint.preview'] }]);
+    expect(plist.CFBundleURLTypes).toEqual([{ CFBundleURLSchemes: ['makerprint-preview', 'com.plainapps.makerprint.preview'] }]);
   });
 });

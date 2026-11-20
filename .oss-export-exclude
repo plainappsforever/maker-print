@@ -1,0 +1,4 @@
+# .oss-export-exclude - paths left out of the public export (one per line)
+scripts/asc-submit.py
+scripts/asc.py
+scripts/asc-contact.local.json

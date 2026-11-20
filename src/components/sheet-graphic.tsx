@@ -3,6 +3,7 @@
 import { memo, useMemo } from 'react';
 import { Defs, G, Line, Path, Pattern, Polygon, Rect, Text as SvgText, Circle } from 'react-native-svg';
 
+import { SelectColor } from '@/constants/theme';
 import type { Asset } from '@/db/assets';
 import type { SheetObject } from '@/db/objects';
 import { cornerPoints, rotateHandlePoint, ROTATE_HANDLE_PT } from '@/editor/gestures';
@@ -95,11 +96,11 @@ export function SheetGraphic(p: SheetGraphicProps) {
     <>
       <Defs>
         <Pattern id="hatch" patternUnits="userSpaceOnUse" width={hair * 8} height={hair * 8}>
-          <Path d={`M0 ${hair * 8}L${hair * 8} 0`} stroke="rgb(198,40,40)" strokeOpacity={0.45} strokeWidth={hair} />
+          <Path d={`M0 ${hair * 8}L${hair * 8} 0`} stroke={SelectColor} strokeOpacity={0.45} strokeWidth={hair} />
         </Pattern>
       </Defs>
       <Rect x={0} y={0} width={W} height={H} fill="white" stroke="rgb(120,120,120)" strokeWidth={hair} />
-      {grid ? <Path d={grid} stroke="rgb(210,225,245)" strokeWidth={hair} /> : null}
+      {grid ? <Path d={grid} stroke="rgb(228,222,214)" strokeWidth={hair} /> : null}
       {p.objects.map((o) =>
         o.hidden ? null : (
           <ObjectItem
@@ -127,7 +128,7 @@ export function SheetGraphic(p: SheetGraphicProps) {
           width={Math.max(0, W - p.margins.l - p.margins.r)}
           height={Math.max(0, H - p.margins.t - p.margins.b)}
           fill="none"
-          stroke="rgb(10,107,216)"
+          stroke={SelectColor}
           strokeOpacity={0.6}
           strokeWidth={hair}
           strokeDasharray={[hair * 6, hair * 4]}
@@ -161,13 +162,13 @@ function Selection({ o, hair }: { o: SheetObject; hair: number }) {
   const handle = 7 * hair;
   return (
     <G>
-      <Polygon points={pts} fill="none" stroke="rgb(10,107,216)" strokeWidth={hair * 1.5} />
+      <Polygon points={pts} fill="none" stroke={SelectColor} strokeWidth={hair * 1.5} />
       {o.locked ? null : (
         <>
-          <Line x1={top.x} y1={top.y} x2={rot.x} y2={rot.y} stroke="rgb(10,107,216)" strokeWidth={hair * 1.5} />
-          <Circle cx={rot.x} cy={rot.y} r={handle} fill="white" stroke="rgb(10,107,216)" strokeWidth={hair * 2} />
+          <Line x1={top.x} y1={top.y} x2={rot.x} y2={rot.y} stroke={SelectColor} strokeWidth={hair * 1.5} />
+          <Circle cx={rot.x} cy={rot.y} r={handle} fill="white" stroke={SelectColor} strokeWidth={hair * 2} />
           {[cs.tl, cs.tr, cs.br, cs.bl].map((q, i) => (
-            <Circle key={i} cx={q.x} cy={q.y} r={handle} fill="white" stroke="rgb(10,107,216)" strokeWidth={hair * 2} />
+            <Circle key={i} cx={q.x} cy={q.y} r={handle} fill="white" stroke={SelectColor} strokeWidth={hair * 2} />
           ))}
         </>
       )}

@@ -2,10 +2,11 @@
 // real length, and the object is scaled about its centre with the aspect locked. Points live in the source's natural
 // coordinates (image px / PDF or SVG mm), exactly what `scaleFromKnownLength` takes.
 import { useReducer, useState } from 'react';
-import { Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Modal, ScrollView, StyleSheet, View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import Svg, { Circle, Image as SvgImage, Line } from 'react-native-svg';
 
+import { Text } from './text';
 import type { SheetObject } from '@/db/objects';
 import type { Point } from '@/engine/geometry';
 import { measuredMm, scaleFromKnownLength } from '@/engine/known-length';

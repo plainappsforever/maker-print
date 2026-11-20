@@ -25,7 +25,7 @@ if [[ ! -f $marker || "$(cat "$marker")" != "$stamp" ]]; then
 fi
 # Switching variant (development <-> preview) without --clean leaves Gradle's generated autolinking config naming the OLD application
 # id (`android/build/generated/autolinking/autolinking.json` is only regenerated when package.json changes), and a Release build then
-# fails with "package com.tim.makerprint.dev does not exist" (found in P7; same as meter-tracker V1 P6). Rewrite the id in that
+# fails with "package com.plainapps.makerprint.dev does not exist" (found in P7; same as meter-tracker V1 P6). Rewrite the id in that
 # generated file (never a deletion); Gradle then regenerates the entry point from it.
 if [[ $platform == android && -f android/build/generated/autolinking/autolinking.json ]]; then
   app_id=$(npx expo config --json --type public | node -e 'console.log(JSON.parse(require("fs").readFileSync(0, "utf8")).android.package)')

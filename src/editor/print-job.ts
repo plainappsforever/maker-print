@@ -57,7 +57,7 @@ export function printMode(os: Os, pages: number, calibrations: readonly Pick<Cal
 /** "×1.0067" — corrections are shown to 4 decimals (U3). */
 export const factor = (c: number) => `×${c.toFixed(4)}`;
 
-/** Status of a profile for one paper (SPEC §9.3 "Calibrated 12 Sep ✓ ×1.000 / not calibrated"). */
+/** Status of a profile for one paper (SPEC §9.3 "Calibrated 12 Sep: ×1.000 / not calibrated"). */
 export function calibrationStatus(calibrations: readonly Calibration[], paperKey: PaperKey, jobKind: JobKind): Calibration | null {
   return calibrations.find((c) => c.paperKey === paperKey && c.jobKind === jobKind) ?? null;
 }

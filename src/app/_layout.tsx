@@ -1,9 +1,10 @@
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider, type Theme } from 'expo-router';
 import type { SQLiteDatabase } from 'expo-sqlite';
 import { useSyncExternalStore } from 'react';
 import { StyleSheet, useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { BrandFonts, Colors } from '@/constants/theme';
 import { openDatabase } from '@/db/migrations';
 import { DatabaseProvider } from '@/db/provider';
 import { getAppSettings } from '@/db/settings';
@@ -29,6 +30,24 @@ export default function RootLayout() {
   );
 }
 
+// D24: header, back button and screen backgrounds follow the brand tokens instead of React Navigation's iOS blue.
+function navigationTheme(dark: boolean): Theme {
+  const base = dark ? DarkTheme : DefaultTheme;
+  const c = Colors[dark ? 'dark' : 'light'];
+  const font = (f: Theme['fonts']['regular']) => ({ ...f, fontFamily: BrandFonts.body });
+  return {
+    ...base,
+    colors: { ...base.colors, primary: c.tintText, background: c.background, card: c.background, text: c.text, border: c.border },
+    fonts: {
+      regular: font(base.fonts.regular),
+      medium: font(base.fonts.medium),
+      bold: font(base.fonts.bold),
+      heavy: font(base.fonts.heavy),
+    },
+  };
+}
+const NAV_THEMES = { light: navigationTheme(false), dark: navigationTheme(true) };
+
 function Navigator() {
   const scheme = useColorScheme();
   // A language change (Settings) re-mounts the screens (key) with titles from `tt`, which depends on `language` so the
@@ -36,9 +55,9 @@ function Navigator() {
   const language = useSyncExternalStore(subscribeUiLanguage, getUiLanguage);
   const tt = (key: TranslationKey) => translate(language, key);
   return (
-    <ThemeProvider value={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack key={language}>
-        <Stack.Screen name="index" options={{ title: tt('nav.projects') }} />
+    <ThemeProvider value={NAV_THEMES[scheme === 'dark' ? 'dark' : 'light']}>
+      <Stack key={language} screenOptions={{ headerTitleStyle: { fontFamily: BrandFonts.title } }}>
+        <Stack.Screen name="index" options={{ title: tt('nav.projects'), headerLargeTitle: true, headerLargeTitleStyle: { fontFamily: BrandFonts.title } }} />
         <Stack.Screen name="project/[id]/index" options={{ title: tt('nav.editor') }} />
         <Stack.Screen name="project/[id]/print" options={{ title: tt('nav.print') }} />
         <Stack.Screen name="calibrate" options={{ title: tt('nav.calibrate') }} />

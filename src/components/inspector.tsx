@@ -2,8 +2,10 @@
 // fit/fill, crop, Repeat (cols, rows, gaps, Fill sheet, trim marks), PPI line, known length, per-kind properties,
 // the importer's report, Duplicate / Delete. Every change goes to the parent, which autosaves through the queue.
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
+import { Radius } from '@/constants/theme';
+import { Text, TextInput } from './text';
 import type { Asset } from '@/db/assets';
 import type { Repeat } from '@/db/guards';
 import type { SheetObject } from '@/db/objects';
@@ -57,7 +59,7 @@ export function Inspector({ o, asset, prefs, ppiTarget, safe, checkBar, onPatch,
           {o.name || t(`kind.${o.kind}` as TranslationKey)}
         </Text>
         {scale && !scale.designed ? (
-          <Text testID="badge-not-designed" style={[styles.badge, { backgroundColor: '#E65100' }]}>
+          <Text testID="badge-not-designed" style={[styles.badge, { backgroundColor: theme.warnFill }]}>
             {t('inspector.notDesigned')}
           </Text>
         ) : null}
@@ -95,14 +97,14 @@ export function Inspector({ o, asset, prefs, ppiTarget, safe, checkBar, onPatch,
             }}
           />
           <View style={styles.flex}>
-            <Text testID="scale-line" style={[styles.line, { color: scale.designed ? theme.text : '#E65100' }]}>
+            <Text testID="scale-line" style={[styles.line, { color: scale.designed ? theme.text : theme.warn }]}>
               {scale.designed ? t('inspector.atDesigned') : t('inspector.scaleXY', { x: fmtPct(scale.x), y: fmtPct(scale.y) })}
             </Text>
           </View>
         </View>
       ) : null}
       {ppi ? (
-        <Text testID="ppi-line" style={[styles.line, { color: ppi.band === 'sharp' || ppi.band === 'fine' ? theme.text : '#E65100' }]}>
+        <Text testID="ppi-line" style={[styles.line, { color: ppi.band === 'sharp' || ppi.band === 'fine' ? theme.text : theme.warn }]}>
           {t(`ppi.${ppi.band}` as TranslationKey, { ppi: Math.round(ppi.ppi) })}
         </Text>
       ) : null}
@@ -313,7 +315,7 @@ const styles = StyleSheet.create({
   wrap: { gap: 10, paddingBottom: 24 },
   titleRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   title: { fontSize: 16, fontWeight: '700', flexShrink: 1 },
-  badge: { color: '#fff', fontSize: 12, fontWeight: '700', paddingHorizontal: 8, paddingVertical: 3, borderRadius: 10, overflow: 'hidden' },
+  badge: { color: '#fff', fontSize: 12, fontWeight: '700', paddingHorizontal: 8, paddingVertical: 3, borderRadius: Radius.control, overflow: 'hidden' },
   row: { flexDirection: 'row', gap: 10, alignItems: 'flex-end', flexWrap: 'wrap' },
   buttons: { flexDirection: 'row', gap: 6 },
   flex: { flex: 1 },
@@ -322,6 +324,6 @@ const styles = StyleSheet.create({
   sub: { fontSize: 12, fontWeight: '700', textTransform: 'uppercase', marginTop: 6 },
   group: { gap: 8 },
   actions: { marginTop: 8 },
-  textInput: { minHeight: 60, borderRadius: 8, padding: 10, fontSize: 16 },
-  input: { minHeight: 40, borderRadius: 8, paddingHorizontal: 10, fontSize: 16 },
+  textInput: { minHeight: 60, borderRadius: Radius.control, padding: 10, fontSize: 16 },
+  input: { minHeight: 40, borderRadius: Radius.control, paddingHorizontal: 10, fontSize: 16 },
 });

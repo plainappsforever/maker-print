@@ -2,8 +2,10 @@
 // NumberField, Chips (segmented choice), Toggle row, BusyOverlay (D64: imports block the JS thread — the native
 // spinner keeps turning while our parser runs).
 import { useState } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, Switch, Text, TextInput, View, type StyleProp, type ViewStyle } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Switch, View, type StyleProp, type ViewStyle } from 'react-native';
 
+import { Radius } from '@/constants/theme';
+import { Text, TextInput } from './text';
 import { useTheme } from '@/hooks/use-theme';
 import { t, type TranslationKey } from '@/i18n';
 import { formatLength, parseLength, type DisplayUnit, type InchStyle, type Locale } from '@/engine/units';
@@ -186,7 +188,7 @@ export function BusyOverlay({ text, detail }: { text: string | null; detail?: st
 const styles = StyleSheet.create({
   field: { flex: 1, minWidth: 120, gap: 2 },
   label: { fontSize: 12, fontWeight: '600' },
-  input: { minHeight: 40, borderRadius: 8, paddingHorizontal: 10, fontSize: 16, borderWidth: 1 },
+  input: { minHeight: 40, borderRadius: Radius.control, paddingHorizontal: 10, fontSize: 16, borderWidth: 1 },
   error: { fontSize: 12 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   flex: { flex: 1 },
@@ -196,7 +198,7 @@ const styles = StyleSheet.create({
   chipText: { fontSize: 14, fontWeight: '600' },
   toggle: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: 44 },
   toggleText: { fontSize: 15, flex: 1 },
-  small: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 8 },
+  small: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: Radius.control },
   smallText: { fontSize: 14, fontWeight: '600' },
   busyBack: { zIndex: 100, elevation: 100, backgroundColor: 'rgba(0,0,0,0.45)', alignItems: 'center', justifyContent: 'center' },
   busyBox: { backgroundColor: 'rgba(30,30,34,0.95)', padding: 24, borderRadius: 16, alignItems: 'center', gap: 12, maxWidth: 300 },

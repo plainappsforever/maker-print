@@ -2,11 +2,12 @@
 // 3 mm, D76), its saved corrections per paper × job kind, delete.
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 
+import { TextInput } from '@/components/text';
 import { LengthField, SmallButton } from '@/components/fields';
 import { ThemedText } from '@/components/themed-text';
-import { Spacing } from '@/constants/theme';
+import { Radius, Spacing } from '@/constants/theme';
 import { deleteCalibration, listCalibrations, type Calibration } from '@/db/calibrations';
 import { deleteProfile, forgetProfilePrinter, getProfile, updateProfile, type Profile } from '@/db/profiles';
 import { useSQLiteContext } from '@/db/provider';
@@ -167,9 +168,9 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   flex: { flex: 1 },
   content: { padding: Spacing.three, gap: Spacing.two, paddingBottom: 64 },
-  input: { minHeight: 40, borderRadius: 8, paddingHorizontal: 10, fontSize: 16 },
+  input: { minHeight: 40, borderRadius: Radius.control, paddingHorizontal: 10, fontSize: 16 },
   notes: { minHeight: 64, paddingTop: 8 },
   fields: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two },
-  card: { padding: Spacing.two, borderRadius: 10, gap: 6 },
+  card: { padding: Spacing.two, borderRadius: Radius.control, gap: 6 },
   danger: { marginTop: Spacing.four, alignItems: 'flex-start' },
 });

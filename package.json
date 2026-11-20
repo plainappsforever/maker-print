@@ -1,12 +1,13 @@
 {
   "name": "maker-print",
   "main": "expo-router/entry",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "dependencies": {
     "@cantoo/pdf-lib": "2.11.1",
     "@expo/ui": "~57.0.21",
     "@xmldom/xmldom": "0.9.12",
     "expo": "~57.0.26",
+    "expo-build-properties": "~57.0.23",
     "expo-constants": "~57.0.18",
     "expo-dev-client": "~57.0.19",
     "expo-device": "~57.0.2",
@@ -25,6 +26,7 @@
     "expo-splash-screen": "~57.0.9",
     "expo-sqlite": "~57.0.3",
     "expo-status-bar": "~57.0.1",
+    "expo-store-review": "~57.0.3",
     "expo-symbols": "~57.0.3",
     "expo-system-ui": "~57.0.4",
     "expo-web-browser": "~57.0.3",
